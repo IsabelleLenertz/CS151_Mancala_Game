@@ -1,2 +1,4 @@
 # CS151_Mancala_Game
-Group project: a GUI mancala game written in Java with the Java Swing library
+
+An interactive, graphical Mancala game for two players. Satisfies the requirements 
+for the Spring 2018 CS 151 group project at San Jose State University.
