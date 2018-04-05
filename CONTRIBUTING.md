@@ -14,5 +14,5 @@ made to the source code. This helps the team leader when it comes time to write 
 
 In addition to our university’s academic integrity policies, our professor made sure 
 to explicitly mention, in the 
-[http://www.cs.sjsu.edu/~kim/cs151/contents/project/rules.html](Project Rules) document, 
+[Project Rules](http://www.cs.sjsu.edu/~kim/cs151/contents/project/rules.html) document, 
 that we must acknowledge any use of outside code in our corresponding source code.
