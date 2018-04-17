@@ -33,4 +33,12 @@ public class BoardModel {
 	public void play() {
 		
 	}
+	
+	/**
+	 * Method for updating the appearance of the game for the user after
+	 * changes have been made to the underlying data.
+	 */
+	private void notifyView() {
+		
+	}
 }
