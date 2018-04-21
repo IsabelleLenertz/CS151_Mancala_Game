@@ -22,8 +22,8 @@ public class BoardModel {
 		holes = new Hole[14];
 		players = new Player[2];
 		
-		players[0] = new Player(); // Player 1
-		players[1] = new Player(); // Player 2
+		//players[0] = new Player(); // Player 1
+		//players[1] = new Player(); // Player 2
 	}
 	
 	/**
