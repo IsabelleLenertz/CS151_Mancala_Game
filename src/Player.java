@@ -78,7 +78,7 @@ public class Player {
 				}
 			}
 			// Add a stone and move on to the next hole
-			holes[holeIndex].incrementStones();
+			holes[holeIndex%13].incrementStones();
 			holeIndex++;
 			stonesCollected--;
 		}
