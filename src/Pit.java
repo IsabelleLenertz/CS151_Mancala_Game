@@ -3,14 +3,15 @@ public class Pit extends Hole {
 
 	@Override
 	public int removeAllStones() {
-		// TODO Auto-generated method stub
-		return 0;
+		int temp = this.getStones();
+		this.stoneMutator(0-temp);
+		return temp;
 	}
 
 	@Override
 	public int decrementStones() {
-		// TODO Auto-generated method stub
-		return 0;
+		this.stoneMutator(-1);
+		return this.getStones();
 	}
 
 }

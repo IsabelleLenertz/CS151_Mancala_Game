@@ -3,7 +3,7 @@ public abstract class Hole {
 	private int stones;
 	
 	public Hole() {
-		// TODO method stub
+		stones = 0;
 
 	}
 	
@@ -14,7 +14,7 @@ public abstract class Hole {
 	public abstract int removeAllStones();
 	
 	public int incrementStones() {
-		// TODO method stub
+		stones++;
 		return 0;
 	}
 	
@@ -22,7 +22,7 @@ public abstract class Hole {
 	
 	
 	protected void stoneMutator(int numberToAdd) {
-		// TODO method stub
+		stones = stones+numberToAdd;
 	}
 	
 }
