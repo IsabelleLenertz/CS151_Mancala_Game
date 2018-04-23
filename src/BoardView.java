@@ -1,8 +1,9 @@
 /**
- * Defines the methods required for a concrete BoardView implementation.
+ * Class that handles the display and update of the display
+ * for the board game.
  * 
  * @author Lucas Galleguillos
  */
-public interface BoardView {
-	
+public class BoardView {
+	// TO-DO: Define a constructor.
 }
