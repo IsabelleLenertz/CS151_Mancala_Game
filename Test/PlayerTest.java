@@ -1,6 +1,4 @@
-import static org.junit.Assert.*;
-import org.junit.Test;
-
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -76,6 +74,22 @@ class PlayerTest {
             for (int j = 0; j < 4; j++)
                 holes[i].incrementStones();
         }
+        
+        // Make sure the board is properly initiliazed
+        assertEquals(4, holes[0].getStones());
+        assertEquals(4, holes[1].getStones());
+        assertEquals(4, holes[2].getStones());
+        assertEquals(4, holes[3].getStones());
+        assertEquals(4, holes[4].getStones());
+        assertEquals(4, holes[5].getStones());
+        assertEquals(0, holes[6].getStones());
+        assertEquals(4, holes[7].getStones());
+        assertEquals(4, holes[8].getStones());
+        assertEquals(4, holes[9].getStones());
+        assertEquals(4, holes[10].getStones());
+        assertEquals(4, holes[11].getStones());
+        assertEquals(4, holes[12].getStones());
+        assertEquals(0, holes[13].getStones());
 
         // Allow the Player to play, using the hole #2
         player.startTurn();
@@ -104,8 +118,8 @@ class PlayerTest {
         // Player the second turn (player should have gotten a second turn)
         player.play(5);
         // Check if the board was properly updated
-        assertEquals(5, holes[0].getStones());
-        assertEquals(5, holes[1].getStones());
+        assertEquals(4, holes[0].getStones());
+        assertEquals(4, holes[1].getStones());
         assertEquals(0, holes[2].getStones());
         assertEquals(5, holes[3].getStones());
         assertEquals(5, holes[4].getStones());
@@ -114,14 +128,14 @@ class PlayerTest {
         assertEquals(5, holes[7].getStones());
         assertEquals(5, holes[8].getStones());
         assertEquals(5, holes[9].getStones());
-        assertEquals(4, holes[10].getStones());
+        assertEquals(5, holes[10].getStones());
         assertEquals(4, holes[11].getStones());
         assertEquals(4, holes[12].getStones());
         assertEquals(0, holes[13].getStones());
 
         // Check is the player's scores are up to date
         assertFalse(player.isTurn());
-        assertEquals(1, player.getScore());
+        assertEquals(2, player.getScore());
 
         // Changes the board to test corner cases
         // Check if the other player's mancala is skipped
@@ -138,6 +152,21 @@ class PlayerTest {
         holes[11].stoneMutator(0);
         holes[12].stoneMutator(0);
         holes[13].stoneMutator(0);
+        assertEquals(0, holes[0].getStones());
+        assertEquals(0, holes[1].getStones());
+        assertEquals(0, holes[2].getStones());
+        assertEquals(0, holes[3].getStones());
+        assertEquals(0, holes[4].getStones());
+        assertEquals(0, holes[5].getStones());
+        assertEquals(0, holes[6].getStones());
+        assertEquals(0, holes[7].getStones());
+        assertEquals(0, holes[8].getStones());
+        assertEquals(0, holes[9].getStones());
+        assertEquals(0, holes[10].getStones());
+        assertEquals(0, holes[11].getStones());
+        assertEquals(0, holes[12].getStones());
+        assertEquals(0, holes[13].getStones());
+
 
         player.startTurn();
         player.play(5);

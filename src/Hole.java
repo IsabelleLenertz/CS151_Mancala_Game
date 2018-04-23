@@ -25,4 +25,4 @@ public abstract class Hole {
 		stones = stones+numberToAdd;
 	}
 	
-}
+} 

@@ -68,21 +68,26 @@ public class Player {
 	public int play(int holeIndex) {
 		
 		int stonesCollected = holes[holeIndex].removeAllStones();
-		
+		holeIndex++;
 		// Distribute the collected stones in the holes
 		while(stonesCollected > 0) {
 			// Check if the hole is not the other player's mancala
 			if(holes[holeIndex].getClass() == mancala.getClass()) {
 				if(holes[holeIndex] != mancala) {
-					holeIndex++;
+					holeIndex = (holeIndex + 1)%13;
 				}
 			}
 			// Add a stone and move on to the next hole
-			holes[holeIndex%13].incrementStones();
-			holeIndex++;
+			holes[holeIndex].incrementStones();
+			holeIndex = (holeIndex + 1)%13;
 			stonesCollected--;
 		}
-		holeIndex--;
+		// Make sure the index is not out of bound when decreasing to be at the last hole a stone was added too.
+		if (holeIndex == 0) {
+			holeIndex = 13;
+		} else {
+			holeIndex--;
+		}
 		
 		// If the last hole was one of the player's pit
 		if (Arrays.asList(pits).contains(holes[holeIndex])) {
