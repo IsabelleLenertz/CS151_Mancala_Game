@@ -22,7 +22,7 @@ public abstract class Hole {
 	
 	
 	protected void stoneMutator(int numberToAdd) {
-		stones = stones+numberToAdd;
+		stones = numberToAdd;
 	}
 	
 } 

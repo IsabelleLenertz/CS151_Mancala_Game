@@ -28,6 +28,6 @@ public class HoleTest {
         Hole hole = new Pit();
         hole.stoneMutator(4);
         hole.stoneMutator(4);
-        assertEquals(8,hole.getStones());
+        assertEquals(4,hole.getStones());
     }
 }

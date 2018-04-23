@@ -12,7 +12,7 @@ public class Mancala extends Hole{
 	}
 
 	public int addStones(int stonesToAdd) {
-		this.stoneMutator(stonesToAdd);
+		this.stoneMutator(stonesToAdd+this.getStones());
 		return this.getStones();
 	}
 }
