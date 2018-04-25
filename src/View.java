@@ -24,7 +24,7 @@ public interface View {
 	/**
 	 * Notify the View to update the display
 	 * Called by the model (ie, BoardModel)
-	 * This is makes the view interface our change listener.
+	 * This makes the view interface our change listener.
 	 */
 	public void isNotified();
 }

@@ -34,6 +34,9 @@ public class BoardView implements View {
 		
 	}
 	
+	/**
+	 * Called by the model when the view is to be updated.
+	 */
 	public void isNotified() {
 		drawBoard();
 	}
