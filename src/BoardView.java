@@ -5,17 +5,24 @@
  * @author Lucas Galleguillos
  */
 public class BoardView implements View {
-
-	@Override
+	private BoardStrategy strategy;
+	
+	/**
+	 * Setter for this BoardView's underlying BoardStrategy.
+	 * 
+	 * @param strategy the new BoardStrategy this BoardView will contain
+	 */
 	public void setBoardStrategy(BoardStrategy strategy) {
-		// TODO Auto-generated method stub
-		
+		this.strategy = strategy;
 	}
-
-	@Override
+	
+	/**
+	 * Getter for this BoardView's underlying BoardStrategy. 
+	 * 
+	 * @return the BoardStrategy contained by this BoardView
+	 */
 	public BoardStrategy getBoardStrategy() {
-		// TODO Auto-generated method stub
-		return null;
+		return strategy;
 	}
 
 	@Override
@@ -29,6 +36,4 @@ public class BoardView implements View {
 		// TODO Auto-generated method stub
 		
 	}
-	
-	// TODO: Define a constructor.
 }
