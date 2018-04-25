@@ -17,7 +17,7 @@ public interface BoardStrategy {
 	 * @param width width of the pit
 	 * @param g2 graphical context
 	 */
-	public void drawPit(int xPosition, int yPosition, int height, int width, Graphics2D g2);
+	public void drawPit(int numberOfStones, int xPosition, int yPosition, int height, int width, Graphics2D g2);
 	
 	/**
 	 * Draw a mancala on the board view
@@ -27,7 +27,7 @@ public interface BoardStrategy {
 	 * @param width width of the pit
 	 * @param g2 graphical context
 	 */
-	public void drawMancala(int xPosition, int yPosition, int height, int width, Graphics2D g2);
+	public void drawMancala(int numberOfStones, int xPosition, int yPosition, int height, int width, Graphics2D g2);
 	
 	/**
 	 * Display the score of the player on the board view
@@ -48,18 +48,11 @@ public interface BoardStrategy {
 	public void displayPlayer(String playerName, int xPosition, int yPosition, Graphics2D g2);
 	
 	/**
-	 * Display the boarder of the board on the board view
+	 * Display the boarder and background of the board on the board view
 	 * @param height height of the board view
 	 * @param width width of the board view
 	 * @param g2 graphical context
 	 */
-	public void drawBoardBoarder( int height, int width, Graphics2D g2);
+	public void drawBoardBackground( int height, int width, Graphics2D g2);
 	
-	/**
-	 * Display the background of the board inside the board view
-	 * @param height height of the board view
-	 * @param width width of the board view
-	 * @param g2 graphical context
-	 */
-	public void drawBoardFillIn( int height, int width, Graphics2D g2);
 }
