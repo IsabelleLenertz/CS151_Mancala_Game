@@ -22,12 +22,6 @@ public interface View {
 	public BoardStrategy getBoardStrategy();
 	
 	/**
-	 * Update the display of the board using the method of the BoardStrategy interface
-	 * To be left private and called by isNotified()
-	 */
-	void drawBoard();
-	
-	/**
 	 * Notify the View to update the display
 	 * Called by the model (ie, BoardModel)
 	 * This is makes the view interface our change listener.

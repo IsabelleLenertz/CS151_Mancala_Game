@@ -25,13 +25,16 @@ public class BoardView implements View {
 		return strategy;
 	}
 	
-	public void drawBoard() {
+	/**
+	 * Update the display of the board using the method of the BoardStrategy interface
+	 * To be left private and called by isNotified()
+	 */
+	private void drawBoard() {
 		// TODO Auto-generated method stub
 		
 	}
 	
 	public void isNotified() {
-		// TODO Auto-generated method stub
 		
 	}
 }
