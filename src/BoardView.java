@@ -35,6 +35,6 @@ public class BoardView implements View {
 	}
 	
 	public void isNotified() {
-		
+		drawBoard();
 	}
 }

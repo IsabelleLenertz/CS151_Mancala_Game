@@ -39,6 +39,6 @@ public class BoardModel {
 	 * changes have been made to the underlying data.
 	 */
 	private void notifyView() {
-		
+		view.isNotified();
 	}
 }
