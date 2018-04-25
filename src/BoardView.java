@@ -24,14 +24,12 @@ public class BoardView implements View {
 	public BoardStrategy getBoardStrategy() {
 		return strategy;
 	}
-
-	@Override
+	
 	public void drawBoard() {
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
+	
 	public void isNotified() {
 		// TODO Auto-generated method stub
 		
