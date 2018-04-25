@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
  * part of a group project
  * @author Isabelle Delmas
  * @Date: 04-21-2018
- * @Revision:					Reason:
+ * @Revision:	04-22 and 04-23-18		Reason: fixed initial bugs after Hole, Pit and Mancala classes were working properly
  *
  */
 class PlayerTest {
@@ -142,6 +142,7 @@ class PlayerTest {
         holes[0].stoneMutator(0);
         holes[1].stoneMutator(0);
         holes[2].stoneMutator(0);
+        holes[3].stoneMutator(0);
         holes[4].stoneMutator(0);
         holes[5].stoneMutator(9);
         holes[6].stoneMutator(0);
@@ -152,37 +153,22 @@ class PlayerTest {
         holes[11].stoneMutator(0);
         holes[12].stoneMutator(0);
         holes[13].stoneMutator(0);
-        assertEquals(0, holes[0].getStones());
-        assertEquals(0, holes[1].getStones());
-        assertEquals(0, holes[2].getStones());
-        assertEquals(0, holes[3].getStones());
-        assertEquals(0, holes[4].getStones());
-        assertEquals(0, holes[5].getStones());
-        assertEquals(0, holes[6].getStones());
-        assertEquals(0, holes[7].getStones());
-        assertEquals(0, holes[8].getStones());
-        assertEquals(0, holes[9].getStones());
-        assertEquals(0, holes[10].getStones());
-        assertEquals(0, holes[11].getStones());
-        assertEquals(0, holes[12].getStones());
-        assertEquals(0, holes[13].getStones());
-
 
         player.startTurn();
         player.play(5);
         // Check if the board was properly updated
         assertEquals(1, holes[0].getStones());
-        assertEquals(1, holes[1].getStones());
+        assertEquals(0, holes[1].getStones());
         assertEquals(0, holes[2].getStones());
         assertEquals(0, holes[3].getStones());
         assertEquals(0, holes[4].getStones());
         assertEquals(0, holes[5].getStones());
-        assertEquals(1, holes[6].getStones());
+        assertEquals(3, holes[6].getStones());
         assertEquals(1, holes[7].getStones());
         assertEquals(1, holes[8].getStones());
         assertEquals(1, holes[9].getStones());
         assertEquals(1, holes[10].getStones());
-        assertEquals(1, holes[11].getStones());
+        assertEquals(0, holes[11].getStones());
         assertEquals(1, holes[12].getStones());
         assertEquals(0, holes[13].getStones());
 

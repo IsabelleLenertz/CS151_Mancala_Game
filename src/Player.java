@@ -92,8 +92,35 @@ public class Player {
 		// If the last hole was one of the player's pit
 		if (Arrays.asList(pits).contains(holes[holeIndex])) {
 			if (holes[holeIndex].getStones() == 1) {
+				int indexToSteal = 0;
+				switch(holeIndex) {
+				case 0:	indexToSteal = 12;
+						break;
+				case 1: indexToSteal = 11;
+						break;				
+				case 2:	indexToSteal = 10;
+						break;
+				case 3: indexToSteal = 9;
+						break;
+				case 4:	indexToSteal = 8;
+						break;
+				case 5: indexToSteal = 7;
+						break;
+				case 7: indexToSteal = 5;
+						break;				
+				case 8:	indexToSteal = 4;
+						break;
+				case 9: indexToSteal = 3;
+						break;
+				case 10:indexToSteal = 2;
+						break;
+				case 11:indexToSteal = 1;
+						break;
+				case 12:indexToSteal = 0;
+						break;
+				}
 				holes[holeIndex].decrementStones();
-				stonesCollected = holes[(holeIndex + 7)%14].removeAllStones() + 1;
+				stonesCollected = holes[indexToSteal].removeAllStones() + 1;
 				mancala.addStones(stonesCollected);
 			}
 		}
