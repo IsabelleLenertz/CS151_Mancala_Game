@@ -1,9 +1,9 @@
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Graphics2D;i
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.Stroke;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.RoundRectangle2D;
 import java.util.ArrayList;
 
 /**
@@ -18,8 +18,10 @@ public class SquareBoard implements BoardStrategy {
 
 	private static final int STONES_PER_ROW = 3;
 	private static final int STONES_PER_COL = 3;
+	private static final int STONES_PER_ROW_M = 3;
+	private static final int STONES_PER_COL_M = 10;
 	private static final int NUMBER_STONE_OFFSET = 5;
-	private static final int CHAR_HEIGHT_OFFSET = 10;
+	private static final int CHAR_HEIGHT_OFFSET = 13;
 	private static final int WIDTH_ARC = 10;
 	private static final int HEIGHT_ARC = WIDTH_ARC;
 	private static final Color BACKGROUND_COLOR = new Color(53, 0, 252);
@@ -29,7 +31,8 @@ public class SquareBoard implements BoardStrategy {
 	private static final Color BORDER_COLOR = new Color(0, 0, 0);
 	private static final Color TEXT_COLOR = new Color(255, 255, 255);
 	final static float DASH1[] = {10.0f};
-    final static BasicStroke DASHED_STROKE = new BasicStroke(1.0f,BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 10.0f, DASH1, 0.0f);
+    final static BasicStroke DASHED_STROKE = new BasicStroke(4.0f ,BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 10.0f, DASH1, 0.0f);
+    final static BasicStroke BASIC_STROKE = new BasicStroke(1.0f ,BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
 
 	/**
 	 * Draw a rectangular pit with elliptical stones on the board view
@@ -41,22 +44,13 @@ public class SquareBoard implements BoardStrategy {
 	 */
 	@Override
 	public void drawPit(int numberOfStones, int xPosition, int yPosition, int height, int width, Graphics2D g2) {	
-		drawHole(numberOfStones, xPosition, yPosition, height, width, g2, PIT_COLOR);
-	}
-	
-	/**
-	 * Draw a rectangular hole with elliptical stones on the board view
-	 * @param xPosition x position of the pit (upper left corner)
-	 * @param yPosition y position of the pit (upper left corner)
-	 * @param height height of the pit
-	 * @param width width of the pit
-	 * @param g2 graphical context
-	 * @param holeColor color of the hole
-	 */
-	private void drawHole(int numberOfStones, int xPosition, int yPosition, int height, int width, Graphics2D g2, Color holeColor) {
+		// Set the stroke to round borders
+		g2.setStroke(BASIC_STROKE);
+
+		
 		// Create and draw the rectangle for the pit
-		Rectangle hole = new Rectangle(xPosition, yPosition, height, width);
-		g2.setColor(holeColor);
+		RoundRectangle2D hole = new RoundRectangle2D.Double(xPosition, yPosition, width, height, WIDTH_ARC, WIDTH_ARC );
+		g2.setColor(PIT_COLOR);
 		g2.fill(hole);
 		g2.setColor(BORDER_COLOR);
 		g2.draw(hole);
@@ -64,33 +58,37 @@ public class SquareBoard implements BoardStrategy {
 		// Create and draw all the stones if room enough to display them		
 		ArrayList<Ellipse2D.Double> stones = null;
 		if (numberOfStones <= (STONES_PER_ROW*STONES_PER_COL)) {
-			stones = new ArrayList<Ellipse2D.Double>();
-			int stoneWidth = width/10;
-			int stoneHeight = height/10;
-			int widthInterval = (width/10)/(STONES_PER_ROW + 1);
-			int heightInterval = (height/10)/(STONES_PER_COL + 1);
+			int stoneWidth = width/(STONES_PER_ROW + 1);
+			int stoneHeight = height/(STONES_PER_COL + 1);
+			int widthInterval = stoneWidth/(STONES_PER_ROW + 1);
+			int heightInterval = stoneHeight/(STONES_PER_COL + 1);
 			int stoneInitialX = xPosition + widthInterval;
-			int stoneInitialY = xPosition + widthInterval;
+			int stoneInitialY = yPosition + heightInterval;
 			int stoneX = stoneInitialX;
 			int stoneY = stoneInitialY;
-			for(Ellipse2D.Double stone : stones) {
-				stone = new Ellipse2D.Double(stoneX, stoneY, stoneWidth, stoneHeight);
-				stoneX += widthInterval;
-				if (stoneX > (xPosition+width)) {
+			for(int i = 0; i < numberOfStones; i++) {
+				if (stoneX+stoneWidth > (xPosition+width)) {
 					stoneX = stoneInitialX;
-					stoneY += heightInterval;
+					stoneY += stoneHeight + heightInterval;
 				}
+				Ellipse2D.Double stone = new Ellipse2D.Double(stoneX, stoneY, stoneHeight, stoneWidth);
 				g2.setColor(STONE_COLOR);
 				g2.fill(stone);
 				g2.setColor(BORDER_COLOR);
 				g2.draw(stone);
+				stoneX += stoneWidth + widthInterval;
+
 			}
 		// Create a string if there are more stones
 		} else {
-			g2.setColor(TEXT_COLOR);
-			g2.drawString("" + numberOfStones, xPosition+NUMBER_STONE_OFFSET, yPosition + NUMBER_STONE_OFFSET);
+			g2.setColor(STONE_COLOR);
+			g2.drawString("" + numberOfStones, xPosition+(width)/2, yPosition + height/2);
 		}
+		
+		// Reset the stroke
+		g2.setStroke(new BasicStroke());
 	}
+
 	
 	/**
 	 * Draw a rectangular pit with elliptical stones on the board view
@@ -101,9 +99,50 @@ public class SquareBoard implements BoardStrategy {
 	 * @param g2 graphical context
 	 */
 	@Override
-	public void drawMancala(int numberOfStones, int xPosition, int yPosition, int height, int width, Graphics2D g2) {
-		drawHole(numberOfStones, xPosition, yPosition, height, width, g2, MANCALA_COLOR);		
-	}
+	public void drawMancala(int numberOfStones, int xPosition, int yPosition, int width, int height, Graphics2D g2) {
+		// Set the stroke to round borders
+		g2.setStroke(BASIC_STROKE);
+		
+		// Create and draw the rectangle for the pit
+		RoundRectangle2D.Double hole = new RoundRectangle2D.Double(xPosition, yPosition, width, height, WIDTH_ARC, WIDTH_ARC);
+		g2.setColor(MANCALA_COLOR);
+		g2.fill(hole);
+		g2.setColor(BORDER_COLOR);
+		g2.draw(hole);
+		
+		// Create and draw all the stones if room enough to display them		
+		if (numberOfStones <= (27)) {
+			int stoneWidth = width/(STONES_PER_ROW_M + 1);
+			int stoneHeight = height/(STONES_PER_COL_M + 3);
+			int widthInterval = stoneWidth/(STONES_PER_ROW_M + 1);
+			int heightInterval = stoneHeight/2;
+			int stoneInitialX = xPosition + widthInterval;
+			int stoneInitialY = yPosition + heightInterval;
+			int stoneX = stoneInitialX;
+			int stoneY = stoneInitialY;
+			for(int i = 0; i < numberOfStones; i++) {
+				if (stoneX+stoneWidth > (xPosition+width)) {
+					stoneX = stoneInitialX;
+					stoneY += stoneHeight + heightInterval;
+				}
+				Ellipse2D.Double stone = new Ellipse2D.Double(stoneX, stoneY, stoneHeight, stoneWidth);
+				g2.setColor(STONE_COLOR);
+				g2.fill(stone);
+				g2.setColor(BORDER_COLOR);
+				g2.draw(stone);
+				stoneX += stoneWidth + widthInterval;
+
+			}
+		// Create a string if there are more stones
+		} else {
+			g2.setColor(STONE_COLOR);
+			g2.drawString("" + numberOfStones, xPosition+(width)/3, yPosition + height/2);
+		}
+		
+		// Reset the stroke
+		g2.setStroke(new BasicStroke());
+
+	}	
 
 	/**
 	 * Display the score of the player horizontally on the board view
@@ -115,8 +154,9 @@ public class SquareBoard implements BoardStrategy {
 	 */
 	@Override
 	public void displayScrore(int score, int xPosition, int yPosition, Graphics2D g2) {
+		yPosition += CHAR_HEIGHT_OFFSET;
 		g2.setColor(TEXT_COLOR);
-		g2.drawString("Score: ", xPosition, yPosition);
+		g2.drawString("Score: " + score, xPosition, yPosition);
 	}
 
 	/**
@@ -139,6 +179,7 @@ public class SquareBoard implements BoardStrategy {
 	@Override
 	public void displayPlayer(String playerName, int xPosition, int yPosition, Graphics2D g2) {
 		g2.setColor(TEXT_COLOR);
+		yPosition += CHAR_HEIGHT_OFFSET;
 		for(char c : playerName.toCharArray()) {
 			g2.drawString("" + c, xPosition, yPosition);
 			yPosition += CHAR_HEIGHT_OFFSET;
@@ -156,12 +197,15 @@ public class SquareBoard implements BoardStrategy {
 	public void drawBoardBackground(int height, int width, Graphics2D g2) {
 		// Draw the background
 		g2.setColor(BACKGROUND_COLOR);
-		g2.fillRoundRect(0, 0, width, height, WIDTH_ARC, HEIGHT_ARC);
+		g2.fillRoundRect(2, 2, width, height, WIDTH_ARC, HEIGHT_ARC);
 
 		// Draw the boarder
 		g2.setColor(BORDER_COLOR);
 		g2.setStroke(DASHED_STROKE);
-		g2.drawRoundRect(0, 0, width, height, WIDTH_ARC, HEIGHT_ARC);
+		g2.drawRoundRect(2, 2, width, height, WIDTH_ARC, HEIGHT_ARC);
+		
+		// Reset the stroke
+		g2.setStroke(new BasicStroke());
 	}
 
 
