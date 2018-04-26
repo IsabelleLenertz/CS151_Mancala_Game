@@ -30,7 +30,6 @@ public class BoardView implements View {
 	 * To be left private and called by isNotified()
 	 */
 	private void drawBoard() {
-		// TODO Auto-generated method stub
 		
 	}
 	
