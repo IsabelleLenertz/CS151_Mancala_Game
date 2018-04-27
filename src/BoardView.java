@@ -1,11 +1,22 @@
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+
+import javax.swing.JPanel;
+
 /**
  * Class that handles the display and update of the display
  * for the board game.
  * 
  * @author Lucas Galleguillos
  */
-public class BoardView implements View {
+public class BoardView extends JPanel implements View {
+	private BoardModel model;
 	private BoardStrategy strategy;
+	
+	public BoardView(BoardModel model, BoardStrategy strategy) {
+		this.model = model;
+		this.strategy = strategy;
+	}
 	
 	/**
 	 * Setter for this BoardView's underlying BoardStrategy.
@@ -26,17 +37,21 @@ public class BoardView implements View {
 	}
 	
 	/**
-	 * Update the display of the board using the method of the BoardStrategy interface
-	 * To be left private and called by isNotified()
+	 * Override the inherited paint component method from JPanel. This allows for
+	 * the custom game board to be displayed using the underlying strategy.
+	 * 
+	 * @param g the default argument associated with this inherited method
 	 */
-	private void drawBoard() {
-		
+	@Override
+	protected void paintComponent(Graphics g) {
+		Graphics2D g2 = (Graphics2D) g;
+		strategy.drawBoardBackground(0, 0, 400, 400, g2);
 	}
 	
 	/**
 	 * Called by the model when the view is to be updated.
 	 */
 	public void isNotified() {
-		drawBoard();
+		repaint();
 	}
 }
