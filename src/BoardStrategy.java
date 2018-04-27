@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
  * Used by the BoardView to define the shape and colors of the board
  * @author Isabelle Delmas
  * @date 05-25-2018
- * @revision				Reason:
+ * @revision 05-26-2018			Reason: updated method headers for easier use
  *
  */
 public interface BoardStrategy {

@@ -9,7 +9,7 @@ import java.awt.geom.RoundRectangle2D;
  * Used by the BoardView to define the shape and colors of the board
  * @author Isabelle Delmas
  * @date 05-25-2018
- * @revision				Reason:
+ * @revision 05-26-2018				Reason: Fixed display bugs
  *
  */
 public class SquareBoard implements BoardStrategy {
@@ -87,7 +87,7 @@ public class SquareBoard implements BoardStrategy {
 
 	
 	/**
-	 * Draw a rectangular pit with elliptical stones on the board view
+	 * Draw a rectangular mancala with elliptical stones on the board view
 	 * @param xPosition x position of the pit (upper left corner)
 	 * @param yPosition y position of the pit (upper left corner)
 	 * @param height height of the pit

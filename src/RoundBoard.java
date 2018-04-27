@@ -2,8 +2,14 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.RoundRectangle2D;
-
+/**
+ * Strategy used to display a board with round pits
+ * Used by the BoardView to define the shape and colors of the board
+ * @author Isabelle Delmas
+ * @date 05-26-2018
+ * @revision 					Reason:
+ *
+ */
 public class RoundBoard implements BoardStrategy {
 
 	private static final int STONES_PER_ROW = 3;
@@ -23,6 +29,14 @@ public class RoundBoard implements BoardStrategy {
     final static BasicStroke DASHED_STROKE = new BasicStroke(4.0f ,BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 10.0f, DASH1, 0.0f);
     final static BasicStroke BASIC_STROKE = new BasicStroke(1.0f ,BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
 	
+	/**
+	 * Display the score of the player horizontally on the board view
+	 * "Score: [score]"
+	 * @param score score to display
+	 * @param xPosition x position of the score (upper left corner)
+	 * @param yPosition y position of the score (upper left corner)
+	 * @param g2 graphical context
+	 */
 	@Override
 	public void displayScrore(int score, int xPosition, int yPosition, Graphics2D g2) {
 		yPosition += CHAR_HEIGHT_OFFSET;
@@ -30,7 +44,24 @@ public class RoundBoard implements BoardStrategy {
 		g2.drawString("Score: " + score, xPosition, yPosition);
 		
 	}
-
+	
+	/**
+	 * Display the name of the player vertically on the board view
+	 * [p]
+	 * [l]
+	 * [a]
+	 * [y]
+	 * [e]
+	 * [r]
+	 * [N]
+	 * [a]
+	 * [m]
+	 * [e]
+	 * @param playerName name of the player
+	 * @param xPosition x position of the player (upper left corner)
+	 * @param yPosition y position of the player (upper left corner)
+	 * @param g2 graphical context
+	 */
 	@Override
 	public void displayPlayer(String playerName, int xPosition, int yPosition, Graphics2D g2) {
 		g2.setColor(TEXT_COLOR);
@@ -42,6 +73,12 @@ public class RoundBoard implements BoardStrategy {
 		
 	}
 
+	/**
+	 * Display the boarder and background of the board on the board view
+	 * @param height height of the board view
+	 * @param width width of the board view
+	 * @param g2 graphical context
+	 */
 	@Override
 	public void drawBoardBackground( int xPosition, int yPosition, int height, int width, Graphics2D g2) {
 		// Draw the background
@@ -56,6 +93,15 @@ public class RoundBoard implements BoardStrategy {
 		// Reset the stroke
 		g2.setStroke(new BasicStroke());
 	}
+	
+	/**
+	 * Draw a pit on the board view
+	 * @param xPosition x position of the pit (upper left corner)
+	 * @param yPosition y position of the pit (upper left corner)
+	 * @param height height of the pit
+	 * @param width width of the pit
+	 * @param g2 graphical context
+	 */
 	@Override
 	public void drawPit(int numberOfStones, int xPosition, int yPosition, int height, int width, Graphics2D g2) {
 		// Set the stroke to round borders
@@ -102,6 +148,14 @@ public class RoundBoard implements BoardStrategy {
 		g2.setStroke(new BasicStroke());		
 	}
 
+	/**
+	 * Draw a elliptical mancala with elliptical stones on the board view
+	 * @param xPosition x position of the pit (upper left corner)
+	 * @param yPosition y position of the pit (upper left corner)
+	 * @param height height of the pit
+	 * @param width width of the pit
+	 * @param g2 graphical context
+	 */
 	@Override
 	public void drawMancala(int numberOfStones, int xPosition, int yPosition, int width, int height, Graphics2D g2) {
 		// Set the stroke to round borders
