@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
@@ -9,7 +10,13 @@ import javax.swing.JPanel;
  * @author Lucas Galleguillos
  */
 public class BoardView extends JPanel implements View {
+	private BoardModel model;
 	private BoardStrategy strategy;
+	
+	public BoardView(BoardModel model, BoardStrategy strategy) {
+		this.model = model;
+		this.strategy = strategy;
+	}
 	
 	/**
 	 * Setter for this BoardView's underlying BoardStrategy.
@@ -37,7 +44,8 @@ public class BoardView extends JPanel implements View {
 	 */
 	@Override
 	protected void paintComponent(Graphics g) {
-		
+		Graphics2D g2 = (Graphics2D) g;
+		strategy.drawBoardBackground(0, 0, 400, 400, g2);
 	}
 	
 	/**

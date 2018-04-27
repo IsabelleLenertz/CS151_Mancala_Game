@@ -27,18 +27,27 @@ public class BoardModel {
 	}
 	
 	/**
-	 * Method which contains the logic for the game. Initiates a new game
-	 * when called.
-	 */
-	public void play() {
-		
-	}
-	
-	/**
 	 * Method for updating the appearance of the game for the user after
 	 * changes have been made to the underlying data.
 	 */
 	private void notifyView() {
 		view.isNotified();
+	}
+	
+	/**
+	 * Allows the current state of the stones to be accessed by other classes.
+	 * 
+	 * @return the array of hole objects stored in this BoardModel
+	 */
+	public Hole[] getHoles() {
+		return holes;
+	}
+	
+	/**
+	 * Method which contains the logic for the game. Initiates a new game
+	 * when called.
+	 */
+	public void play() {
+		
 	}
 }
