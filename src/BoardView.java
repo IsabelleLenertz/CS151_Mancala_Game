@@ -13,9 +13,8 @@ public class BoardView extends JPanel implements View {
 	private BoardModel model;
 	private BoardStrategy strategy;
 	
-	public BoardView(BoardModel model, BoardStrategy strategy) {
+	public BoardView(BoardModel model) {
 		this.model = model;
-		this.strategy = strategy;
 	}
 	
 	/**
