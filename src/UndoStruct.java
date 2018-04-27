@@ -6,7 +6,7 @@
  */
 public class UndoStruct {
 	int[] holes;
-    Player whoseTurn;
+    PlayerEnum whoseTurn;
     public UndoStruct(){
         holes = new int[13];
 
@@ -33,7 +33,7 @@ public class UndoStruct {
      *
      * @param p player that's taking turn
      */
-    public void setWhoseTurn(Player p){
+    public void setWhoseTurn(PlayerEnum p){
         whoseTurn = p;
     }
 
@@ -42,7 +42,7 @@ public class UndoStruct {
      * @return player that's taking turn
      */
 
-    public Player getWhoseTurn() {
+    public PlayerEnum getWhoseTurn() {
         return whoseTurn;
     }
 }
