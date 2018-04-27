@@ -1,10 +1,8 @@
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.RoundRectangle2D;
-import java.util.ArrayList;
 
 /**
  * Strategy used to display a board with square pits
@@ -20,7 +18,6 @@ public class SquareBoard implements BoardStrategy {
 	private static final int STONES_PER_COL = 3;
 	private static final int STONES_PER_ROW_M = 3;
 	private static final int STONES_PER_COL_M = 10;
-	private static final int NUMBER_STONE_OFFSET = 5;
 	private static final int CHAR_HEIGHT_OFFSET = 13;
 	private static final int WIDTH_ARC = 10;
 	private static final int HEIGHT_ARC = WIDTH_ARC;
@@ -56,7 +53,6 @@ public class SquareBoard implements BoardStrategy {
 		g2.draw(hole);
 		
 		// Create and draw all the stones if room enough to display them		
-		ArrayList<Ellipse2D.Double> stones = null;
 		if (numberOfStones <= (STONES_PER_ROW*STONES_PER_COL)) {
 			int stoneWidth = width/(STONES_PER_ROW + 1);
 			int stoneHeight = height/(STONES_PER_COL + 1);
@@ -194,7 +190,7 @@ public class SquareBoard implements BoardStrategy {
 	 * @param g2 graphical context
 	 */
 	@Override
-	public void drawBoardBackground(int height, int width, Graphics2D g2) {
+	public void drawBoardBackground(int xPosition, int yPosition, int height, int width, Graphics2D g2) {
 		// Draw the background
 		g2.setColor(BACKGROUND_COLOR);
 		g2.fillRoundRect(2, 2, width, height, WIDTH_ARC, HEIGHT_ARC);
