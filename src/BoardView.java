@@ -29,6 +29,12 @@ public class BoardView extends JPanel implements View {
 		return strategy;
 	}
 	
+	/**
+	 * Override the inherited paint component method from JPanel. This allows for
+	 * the custom game board to be displayed using the underlying strategy.
+	 * 
+	 * @param g the default argument associated with this inherited method
+	 */
 	@Override
 	protected void paintComponent(Graphics g) {
 		
