@@ -52,7 +52,19 @@ public class BoardView extends JPanel implements View {
 		
 		strategy.drawBoardBackground(0, 0, 400, 400, g2);
 		
+		Player[] players = model.getPlayers();
+		
 		Hole[] holes = model.getHoles();
+		
+		for (int i = 0; i < holes.length; i = i + 1) {
+			if (i == 0) { // Player 1 Mancala
+				
+			} else if (i == 7) { // Player 2 Mancala
+				
+			} else { // The remaining pits
+				
+			}
+		}
 	}
 	
 	/**

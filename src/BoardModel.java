@@ -38,12 +38,21 @@ public class BoardModel {
 	}
 	
 	/**
-	 * Allows the current state of the stones to be accessed by other classes.
+	 * Allows the current state of the holes to be accessed by other classes.
 	 * 
 	 * @return the array of hole objects stored in this BoardModel
 	 */
 	public Hole[] getHoles() {
 		return holes;
+	}
+	
+	/**
+	 * Allows the current state of the players to be accessed by other classes.
+	 * 
+	 * @return the array of player objects stored in this BoardModel
+	 */
+	public Player[] getPlayers() {
+		return players;
 	}
 	
 	/**
