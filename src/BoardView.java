@@ -44,7 +44,10 @@ public class BoardView extends JPanel implements View {
 	@Override
 	protected void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
+		
 		strategy.drawBoardBackground(0, 0, 400, 400, g2);
+		
+		Hole[] holes = model.getHoles();
 	}
 	
 	/**

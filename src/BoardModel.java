@@ -19,7 +19,10 @@ public class BoardModel {
 	 */
 	public BoardModel(BoardView view) {
 		this.view = view;
-		holes = new Hole[14];
+		holes = new Hole[14]; // holes[0] is player 1 mancala
+		                      // holes[1] to holes[6] are player 1's pits
+		                      // holes[7] is player 2 mancala
+		                      // holes[8] to holes[13] are player 2's pits
 		players = new Player[2];
 		
 		//players[0] = new Player(); // Player 1
