@@ -4,10 +4,10 @@
  * holds the most recent pits for undo
  *
  */
-public class UndoStruct {
+public class UndoStructure {
 	int[] holes;
     PlayerEnum whoseTurn;
-    public UndoStruct(){
+    public UndoStructure(){
         holes = new int[13];
 
     }

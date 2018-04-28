@@ -59,8 +59,9 @@ public class BoardModel {
 	 * Method which contains the logic for the game. Initiates a new game
 	 * when called.
 	 */
-	public void play() {
+	public void createGame() {
 		boolean playing = true;
+		UndoStructure us = new UndoStructure();
 		
 		while (playing) {
 			
