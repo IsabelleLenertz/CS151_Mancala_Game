@@ -60,6 +60,10 @@ public class BoardModel {
 	 * when called.
 	 */
 	public void play() {
+		boolean playing = true;
 		
+		while (playing) {
+			
+		}
 	}
 }
