@@ -61,12 +61,13 @@ public class BoardView extends JPanel implements View {
 		Hole[] holes = model.getHoles();
 		
 		for (int j = 0; j < holes.length; j = j + 1) {
-			if (j == 0) { // Player 1 Mancala
-				
-			} else if (j == 7) { // Player 2 Mancala
-				
-			} else { // The remaining pits
-				
+			switch(j) {
+				case 0: // Player 1 Mancala
+				        break;
+				case 7: // Player 2 Mancala
+				        break;
+				default: // The remaining pits
+				         break; 
 			}
 		}
 	}
