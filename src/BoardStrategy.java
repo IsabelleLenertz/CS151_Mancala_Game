@@ -36,7 +36,7 @@ public interface BoardStrategy {
 	 * @param yPosition y position of the score (upper left corner)
 	 * @param g2 graphical context
 	 */
-	public void displayScrore(int score, int xPosition, int yPosition, Graphics2D g2);
+	public void displayScore(int score, int xPosition, int yPosition, Graphics2D g2);
 	
 	/**
 	 * Display the name of the player on the board view

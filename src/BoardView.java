@@ -54,22 +54,44 @@ public class BoardView extends JPanel implements View {
 		
 		Player[] players = model.getPlayers();
 		
-		for (int i = 0; i < players.length; i = i + 1) {
-			
-		}
-		
 		Hole[] holes = model.getHoles();
 		
+		// Start display of board base pieces.
 		for (int j = 0; j < holes.length; j = j + 1) {
 			switch(j) {
-				case 0: // Player 1 Mancala
-				        break;
-				case 7: // Player 2 Mancala
-				        break;
-				default: // The remaining pits
-				         break; 
+				case 0:
+					// Player 1 Mancala
+					strategy.drawMancala(players[0].getScore(), 0, 0, 10, 40, g2);
+					break;
+				case 7:
+					// Player 2 Mancala
+					strategy.drawMancala(players[1].getScore(), 0, 0, 10, 40, g2);
+					break;
+				default:
+					// The remaining pits. Don't have to specify which pit is whose
+					// since all pits are identical in appearance.
+					// To do: System for dynamically changing where the pits are drawn.
+					strategy.drawPit(holes[j].getStones(), 0, 0, 10, 10, g2);
+					break;
 			}
 		}
+		// End display of board base pieces.
+		
+		// Start display of game information overlay.
+		for (int i = 0; i < players.length; i = i + 1) {
+			switch(i) {
+				case 0:
+					// Display Player 1
+					strategy.displayPlayer("Player 1", 0, 0, g2);
+					strategy.displayScore(players[0].getScore(), 0, 0, g2);
+					break;
+				case 1:
+					// Display Player 2
+					strategy.displayPlayer("Player 2", 0, 0, g2);
+					break;
+			}
+		}
+		// End display of game information overlay.
 	}
 	
 	/**
