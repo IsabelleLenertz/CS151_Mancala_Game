@@ -50,6 +50,7 @@ public class BoardView extends JPanel implements View {
 	protected void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		
+		// Start display of the background.
 		strategy.drawBoardBackground(0, 0, 400, 400, g2);
 		
 		Player[] players = model.getPlayers();
@@ -75,7 +76,6 @@ public class BoardView extends JPanel implements View {
 					break;
 			}
 		}
-		// End display of board base pieces.
 		
 		// Start display of game information overlay.
 		for (int i = 0; i < players.length; i = i + 1) {
@@ -88,10 +88,10 @@ public class BoardView extends JPanel implements View {
 				case 1:
 					// Display Player 2
 					strategy.displayPlayer("Player 2", 0, 0, g2);
+					strategy.displayScore(players[1].getScore(), 0, 0, g2);
 					break;
 			}
 		}
-		// End display of game information overlay.
 	}
 	
 	/**

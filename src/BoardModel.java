@@ -60,8 +60,13 @@ public class BoardModel {
 	 * when called.
 	 */
 	public void createGame() {
-		boolean playing = true;
+		PlayerEnum playerOne = PlayerEnum.PLAYER_A;
+		PlayerEnum playerTwo = PlayerEnum.PLAYER_A;
 		UndoStructure us = new UndoStructure();
+		
+		us.setWhoseTurn(playerOne);
+		
+		boolean playing = true;
 		
 		while (playing) {
 			
