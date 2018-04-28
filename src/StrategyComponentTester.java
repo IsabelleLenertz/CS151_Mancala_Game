@@ -20,7 +20,7 @@ public class StrategyComponentTester extends JPanel {
 		for (int i = 0; i < IMAX; i++) {
 			test.drawPit(i,  W_INTERVAL, 305 + (i)*(INTERVAL+HEIGHT),  HEIGHT,  HEIGHT,  g2);
 			test.drawMancala(i+25,  W_INTERVAL*2 + HEIGHT, 305 + (i)*(INTERVAL+HEIGHT*3), HEIGHT, HEIGHT*3, g2);
-			test.displayScrore(i, W_INTERVAL*3 + HEIGHT*2, 305 + i*(INTERVAL+HEIGHT), g2);
+			test.displayScore(i, W_INTERVAL*3 + HEIGHT*2, 305 + i*(INTERVAL+HEIGHT), g2);
 			test.displayPlayer("Player " + i, W_INTERVAL*6 + HEIGHT*3, 305 + i*3*(INTERVAL+HEIGHT), g2);
 			test.drawBoardBackground(2, 2, 300,  200, g2);
 		}
@@ -30,7 +30,7 @@ public class StrategyComponentTester extends JPanel {
 		for (int i = 0; i < IMAX; i++) {
 			test2.drawPit(i, test2X + W_INTERVAL, 305 + (i)*(INTERVAL+HEIGHT),  HEIGHT,  HEIGHT,  g2);
 			test2.drawMancala(i+25,test2X + W_INTERVAL*2 + HEIGHT, 305 + (i)*(INTERVAL+HEIGHT*3), HEIGHT, HEIGHT*3, g2);
-			test2.displayScrore(i, test2X + W_INTERVAL*3 + HEIGHT*2, 305 + i*(INTERVAL+HEIGHT), g2);
+			test2.displayScore(i, test2X + W_INTERVAL*3 + HEIGHT*2, 305 + i*(INTERVAL+HEIGHT), g2);
 			test2.displayPlayer("Player " +i,test2X +  W_INTERVAL*6 + HEIGHT*3, 305 + i*3*(INTERVAL+HEIGHT), g2);
 			test2.drawBoardBackground(2 + test2X, 2, 300,  200, g2);
 		}
