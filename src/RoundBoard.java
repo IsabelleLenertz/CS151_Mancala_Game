@@ -1,6 +1,7 @@
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 /**
  * Strategy used to display a board with round pits
@@ -12,6 +13,7 @@ import java.awt.geom.Ellipse2D;
  */
 public class RoundBoard implements BoardStrategy {
 
+	// Constants
 	private static final int STONES_PER_ROW = 3;
 	private static final int STONES_PER_COL = 3;
 	private static final int STONES_PER_ROW_M = 3;
@@ -25,9 +27,9 @@ public class RoundBoard implements BoardStrategy {
 	private static final Color STONE_COLOR = new Color(78, 60, 145);
 	private static final Color BORDER_COLOR = new Color(0, 0, 0);
 	private static final Color TEXT_COLOR = new Color(0, 6, 4);
-	final static float DASH1[] = {10.0f};
-    final static BasicStroke DASHED_STROKE = new BasicStroke(4.0f ,BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 10.0f, DASH1, 0.0f);
-    final static BasicStroke BASIC_STROKE = new BasicStroke(1.0f ,BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+	private final static float DASH1[] = {10.0f};
+    private final static BasicStroke DASHED_STROKE = new BasicStroke(4.0f ,BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 10.0f, DASH1, 0.0f);
+    private final static BasicStroke BASIC_STROKE = new BasicStroke(1.0f ,BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
 	
 	/**
 	 * Display the score of the player horizontally on the board view
@@ -38,7 +40,7 @@ public class RoundBoard implements BoardStrategy {
 	 * @param g2 graphical context
 	 */
 	@Override
-	public void displayScrore(int score, int xPosition, int yPosition, Graphics2D g2) {
+	public void displayScore(int score, int xPosition, int yPosition, Graphics2D g2) {
 		yPosition += CHAR_HEIGHT_OFFSET;
 		g2.setColor(TEXT_COLOR);
 		g2.drawString("Score: " + score, xPosition, yPosition);
@@ -101,15 +103,16 @@ public class RoundBoard implements BoardStrategy {
 	 * @param height height of the pit
 	 * @param width width of the pit
 	 * @param g2 graphical context
+	 * @return reference to the shape that represents the Pit
 	 */
 	@Override
-	public void drawPit(int numberOfStones, int xPosition, int yPosition, int height, int width, Graphics2D g2) {
+	public Shape drawPit(int numberOfStones, int xPosition, int yPosition, int height, int width, Graphics2D g2) {
 		// Set the stroke to round borders
 		g2.setStroke(BASIC_STROKE);
 
 		
 		// Create and draw the rectangle for the pit
-		Ellipse2D.Double hole = new Ellipse2D.Double(xPosition, yPosition, width, height);
+		Shape hole = new Ellipse2D.Double(xPosition, yPosition, width, height);
 		g2.setColor(PIT_COLOR);
 		g2.fill(hole);
 		g2.setColor(BORDER_COLOR);
@@ -145,7 +148,9 @@ public class RoundBoard implements BoardStrategy {
 		}
 		
 		// Reset the stroke
-		g2.setStroke(new BasicStroke());		
+		g2.setStroke(new BasicStroke());
+		
+		return hole;
 	}
 
 	/**
@@ -155,14 +160,15 @@ public class RoundBoard implements BoardStrategy {
 	 * @param height height of the pit
 	 * @param width width of the pit
 	 * @param g2 graphical context
+	 * @return reference to the shape that represents the Mancala
 	 */
 	@Override
-	public void drawMancala(int numberOfStones, int xPosition, int yPosition, int width, int height, Graphics2D g2) {
+	public Shape drawMancala(int numberOfStones, int xPosition, int yPosition, int width, int height, Graphics2D g2) {
 		// Set the stroke to round borders
 		g2.setStroke(BASIC_STROKE);
 		
 		// Create and draw the rectangle for the pit
-		Ellipse2D.Double hole = new Ellipse2D.Double(xPosition, yPosition, width, height);
+		Shape hole = new Ellipse2D.Double(xPosition, yPosition, width, height);
 		g2.setColor(MANCALA_COLOR);
 		g2.fill(hole);
 		g2.setColor(BORDER_COLOR);
@@ -198,7 +204,9 @@ public class RoundBoard implements BoardStrategy {
 		}
 		
 		// Reset the stroke
-		g2.setStroke(new BasicStroke());		
+		g2.setStroke(new BasicStroke());	
+		
+		return Shape;
 	}
 
 }

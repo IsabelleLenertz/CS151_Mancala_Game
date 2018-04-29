@@ -1,4 +1,5 @@
 import java.awt.Graphics2D;
+import java.awt.Shape;
 
 /**
  * Interface for the Strategy in the Strategy pattern
@@ -16,8 +17,10 @@ public interface BoardStrategy {
 	 * @param height height of the pit
 	 * @param width width of the pit
 	 * @param g2 graphical context
+	 * @return reference to the shape that represents the Pit
+	 * @return 
 	 */
-	public void drawPit(int numberOfStones, int xPosition, int yPosition, int width, int heigth, Graphics2D g2);
+	public Shape drawPit(int numberOfStones, int xPosition, int yPosition, int width, int heigth, Graphics2D g2);
 	
 	/**
 	 * Draw a mancala on the board view
@@ -26,8 +29,10 @@ public interface BoardStrategy {
 	 * @param height height of the pit
 	 * @param width width of the pit
 	 * @param g2 graphical context
+	 * @return reference to the shape that represents the Mancala
+	 * @return 
 	 */
-	public void drawMancala(int numberOfStones, int xPosition, int yPosition, int width, int heigth, Graphics2D g2);
+	public Shape drawMancala(int numberOfStones, int xPosition, int yPosition, int width, int heigth, Graphics2D g2);
 	
 	/**
 	 * Display the score of the player on the board view

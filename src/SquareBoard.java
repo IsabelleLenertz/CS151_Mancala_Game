@@ -1,6 +1,7 @@
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.RoundRectangle2D;
 
@@ -38,15 +39,16 @@ public class SquareBoard implements BoardStrategy {
 	 * @param height height of the pit
 	 * @param width width of the pit
 	 * @param g2 graphical context
+	 * @return reference to the shape that represents the Pit
 	 */
 	@Override
-	public void drawPit(int numberOfStones, int xPosition, int yPosition, int height, int width, Graphics2D g2) {	
+	public Shape drawPit(int numberOfStones, int xPosition, int yPosition, int height, int width, Graphics2D g2) {	
 		// Set the stroke to round borders
 		g2.setStroke(BASIC_STROKE);
 
 		
 		// Create and draw the rectangle for the pit
-		RoundRectangle2D hole = new RoundRectangle2D.Double(xPosition, yPosition, width, height, WIDTH_ARC, WIDTH_ARC );
+		Shape hole = new RoundRectangle2D.Double(xPosition, yPosition, width, height, WIDTH_ARC, WIDTH_ARC );
 		g2.setColor(PIT_COLOR);
 		g2.fill(hole);
 		g2.setColor(BORDER_COLOR);
@@ -83,6 +85,8 @@ public class SquareBoard implements BoardStrategy {
 		
 		// Reset the stroke
 		g2.setStroke(new BasicStroke());
+		
+		return hole;
 	}
 
 	
@@ -93,14 +97,15 @@ public class SquareBoard implements BoardStrategy {
 	 * @param height height of the pit
 	 * @param width width of the pit
 	 * @param g2 graphical context
+	 * @return reference to the shape that represents the Mancala
 	 */
 	@Override
-	public void drawMancala(int numberOfStones, int xPosition, int yPosition, int width, int height, Graphics2D g2) {
+	public Shape drawMancala(int numberOfStones, int xPosition, int yPosition, int width, int height, Graphics2D g2) {
 		// Set the stroke to round borders
 		g2.setStroke(BASIC_STROKE);
 		
 		// Create and draw the rectangle for the pit
-		RoundRectangle2D.Double hole = new RoundRectangle2D.Double(xPosition, yPosition, width, height, WIDTH_ARC, WIDTH_ARC);
+		Shape hole = new RoundRectangle2D.Double(xPosition, yPosition, width, height, WIDTH_ARC, WIDTH_ARC);
 		g2.setColor(MANCALA_COLOR);
 		g2.fill(hole);
 		g2.setColor(BORDER_COLOR);
@@ -137,6 +142,8 @@ public class SquareBoard implements BoardStrategy {
 		
 		// Reset the stroke
 		g2.setStroke(new BasicStroke());
+		
+		return hole;
 
 	}	
 
@@ -149,7 +156,7 @@ public class SquareBoard implements BoardStrategy {
 	 * @param g2 graphical context
 	 */
 	@Override
-	public void displayScrore(int score, int xPosition, int yPosition, Graphics2D g2) {
+	public void displayScore(int score, int xPosition, int yPosition, Graphics2D g2) {
 		yPosition += CHAR_HEIGHT_OFFSET;
 		g2.setColor(TEXT_COLOR);
 		g2.drawString("Score: " + score, xPosition, yPosition);
