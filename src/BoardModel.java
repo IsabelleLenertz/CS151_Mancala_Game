@@ -18,8 +18,7 @@ public class BoardModel {
 	 * 
 	 * @param view BoardView instance that determines style of board for user
 	 */
-	public BoardModel(BoardView view) {
-		this.view = view;
+	public BoardModel() {
 		holes = new Hole[14]; // holes[13] is player 2 mancala
 		                      // holes[0] to holes[5] are player 1's pits
 		                      // holes[6] is player 1 mancala
@@ -66,5 +65,14 @@ public class BoardModel {
 		PlayerEnum playerTwo = PlayerEnum.PLAYER_A;
 		
 		
+	}
+	
+	/**
+	 * Mutator for the BoardView associated with this BoardModel.
+	 * 
+	 * @param view the BoardView for this BoardModel
+	 */
+	public void setBoardView(BoardView view) {
+		this.view = view;
 	}
 }
