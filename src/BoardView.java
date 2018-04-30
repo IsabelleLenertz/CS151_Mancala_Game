@@ -12,24 +12,22 @@ import javax.swing.JLabel;
 public class BoardView extends JLabel implements View {
 	private BoardModel model;
 	private BoardStrategy strategy;
-	// TODO: Allow the class to be relative by making width editable (height is based on width)
+	private int height;
+	private int width;
 	
 	/**
-	 * One args ctor for the BoardView class. Assigns a BoardModel instance to this BoardView.
+	 * Three args ctor for the BoardView class. Allows the user to define a model, strategy, and size
+	 * for the BoardView. The height of the BoardView is determined by the width.
 	 * 
-	 * @param model the underlying BoardModel
+	 * @param model    the underlying data model
+	 * @param strategy the underlying layout strategy
+	 * @param width    the width
 	 */
-	public BoardView(BoardModel model) {
+	public BoardView(BoardModel model, BoardStrategy strategy, int width) {
 		this.model = model;
-	}
-	
-	/**
-	 * Setter for this BoardView's underlying BoardStrategy.
-	 * 
-	 * @param strategy the new BoardStrategy this BoardView will contain
-	 */
-	public void setBoardStrategy(BoardStrategy strategy) {
 		this.strategy = strategy;
+		this.width = width;
+		height = width / 2;
 	}
 	
 	/**
@@ -39,6 +37,13 @@ public class BoardView extends JLabel implements View {
 	 */
 	public BoardStrategy getBoardStrategy() {
 		return strategy;
+	}
+	
+	/**
+	 * Called by the model when the view is to be updated.
+	 */
+	public void isNotified() {
+		repaint();
 	}
 	
 	/**
@@ -96,9 +101,21 @@ public class BoardView extends JLabel implements View {
 	}
 	
 	/**
-	 * Called by the model when the view is to be updated.
+	 * Setter for this BoardView's underlying BoardStrategy.
+	 * 
+	 * @param strategy the new BoardStrategy this BoardView will contain
 	 */
-	public void isNotified() {
-		repaint();
+	public void setBoardStrategy(BoardStrategy strategy) {
+		this.strategy = strategy;
+	}
+	
+	/**
+	 * Setter for the BoardView width. BoardView height is tied to the width.
+	 * 
+	 * @param width the new width for this BoardView
+	 */
+	public void setWidth(int width) {
+		this.width = width;
+		height = width / 2;
 	}
 }
