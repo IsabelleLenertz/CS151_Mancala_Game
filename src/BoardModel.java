@@ -19,15 +19,35 @@ public class BoardModel {
 	 * @param view BoardView instance that determines style of board for user
 	 */
 	public BoardModel() {
+		Mancala playerOneMancala = new Mancala();
+		Mancala playerTwoMancala = new Mancala();
+		
+		Pit[] playerOnePits = new Pit[6];
+		Pit[] playerTwoPits = new Pit[6];
+		
+		for (int i = 0; i < playerOnePits.length; i = i + 1) {
+			playerOnePits[i] = new Pit();
+			playerTwoPits[i] = new Pit();
+		}
+		
 		holes = new Hole[14]; // holes[13] is player 2 mancala
 		                      // holes[0] to holes[5] are player 1's pits
 		                      // holes[6] is player 1 mancala
 		                      // holes[7] to holes[12] are player 2's pits
+		
+		holes[6] = playerOneMancala;
+		holes[13] = playerTwoMancala;
+		
+		for (int j = 0; j < 6; j = j + 1) {
+			holes[j] = playerOnePits[j];
+			holes[j + 7] = playerTwoPits[j];
+		}
+		
 		players = new Player[2];
 		us = new UndoStructure();
 		
-		players[0] = new Player(new Mancala(), new Pit[6], holes); // Player 1
-		players[1] = new Player(new Mancala(), new Pit[6], holes); // Player 2
+		players[0] = new Player(playerOneMancala, playerOnePits, holes); // Player 1
+		players[1] = new Player(playerTwoMancala, playerTwoPits, holes); // Player 2
 	}
 	
 	/**
