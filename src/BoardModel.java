@@ -9,6 +9,7 @@ public class BoardModel {
 	private BoardView view;
 	private Hole[] holes;
 	private Player[] players;
+	private UndoStructure us;
 	
 	/**
 	 * Default ctor for the class. Takes a single argument
@@ -24,6 +25,7 @@ public class BoardModel {
 		                      // holes[7] is player 2 mancala
 		                      // holes[8] to holes[13] are player 2's pits
 		players = new Player[2];
+		us = new UndoStructure();
 		
 		//players[0] = new Player(); // Player 1
 		//players[1] = new Player(); // Player 2
@@ -59,17 +61,10 @@ public class BoardModel {
 	 * Method which contains the logic for the game. Initiates a new game
 	 * when called.
 	 */
-	public void createGame() {
+	public void play() {
 		PlayerEnum playerOne = PlayerEnum.PLAYER_A;
 		PlayerEnum playerTwo = PlayerEnum.PLAYER_A;
-		UndoStructure us = new UndoStructure();
 		
-		us.setWhoseTurn(playerOne);
 		
-		boolean playing = true;
-		
-		while (playing) {
-			
-		}
 	}
 }
