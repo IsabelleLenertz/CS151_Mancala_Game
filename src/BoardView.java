@@ -1,7 +1,7 @@
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-import javax.swing.JPanel;
+import javax.swing.JLabel;
 
 /**
  * Class that handles the display and update of the display
@@ -9,7 +9,7 @@ import javax.swing.JPanel;
  * 
  * @author Lucas Galleguillos
  */
-public class BoardView extends JPanel implements View {
+public class BoardView extends JLabel implements View {
 	private BoardModel model;
 	private BoardStrategy strategy;
 	
