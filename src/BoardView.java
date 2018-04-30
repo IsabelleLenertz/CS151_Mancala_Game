@@ -1,3 +1,4 @@
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
@@ -12,6 +13,7 @@ import javax.swing.JLabel;
 public class BoardView extends JLabel implements View {
 	private BoardModel model;
 	private BoardStrategy strategy;
+	private Dimension size;
 	private int height;
 	private int width;
 	
@@ -23,6 +25,8 @@ public class BoardView extends JLabel implements View {
 	public BoardView(int width) {
 		this.width = width;
 		height = width / 2;
+		size = new Dimension(width, height);
+		setPreferredSize(size);
 	}
 	
 	/**
@@ -122,5 +126,7 @@ public class BoardView extends JLabel implements View {
 	public void setWidth(int width) {
 		this.width = width;
 		height = width / 2;
+		size = new Dimension(width, height);
+		setPreferredSize(size);
 	}
 }
