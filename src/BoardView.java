@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 public class BoardView extends JLabel implements View {
 	private BoardModel model;
 	private BoardStrategy strategy;
+	// TODO: Allow the class to be relative by making width editable (height is based on width)
 	
 	/**
 	 * One args ctor for the BoardView class. Assigns a BoardModel instance to this BoardView.
