@@ -19,9 +19,11 @@ public class BoardModel {
 	 * @param view BoardView instance that determines style of board for user
 	 */
 	public BoardModel() {
+		// Create the mancalas.
 		Mancala playerOneMancala = new Mancala();
 		Mancala playerTwoMancala = new Mancala();
 		
+		// Create the player pits.
 		Pit[] playerOnePits = new Pit[6];
 		Pit[] playerTwoPits = new Pit[6];
 		
@@ -30,24 +32,31 @@ public class BoardModel {
 			playerTwoPits[i] = new Pit();
 		}
 		
+		// Create the master hole data structure.
 		holes = new Hole[14]; // holes[13] is player 2 mancala
 		                      // holes[0] to holes[5] are player 1's pits
 		                      // holes[6] is player 1 mancala
 		                      // holes[7] to holes[12] are player 2's pits
 		
+		// Load the mancalas into holes.
 		holes[6] = playerOneMancala;
 		holes[13] = playerTwoMancala;
 		
+		// Load the pits into holes.
 		for (int j = 0; j < 6; j = j + 1) {
 			holes[j] = playerOnePits[j];
 			holes[j + 7] = playerTwoPits[j];
 		}
 		
+		// Create the players data structure.
 		players = new Player[2];
-		us = new UndoStructure();
 		
+		// Load the players.
 		players[0] = new Player(playerOneMancala, playerOnePits, holes); // Player 1
 		players[1] = new Player(playerTwoMancala, playerTwoPits, holes); // Player 2
+		
+		// Create the undo data structure.
+		us = new UndoStructure();
 	}
 	
 	/**
