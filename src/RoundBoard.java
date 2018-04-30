@@ -39,7 +39,6 @@ public class RoundBoard implements BoardStrategy {
 	 * @param yPosition y position of the score (upper left corner)
 	 * @param g2 graphical context
 	 */
-	@Override
 	public void displayScore(int score, int xPosition, int yPosition, Graphics2D g2) {
 		yPosition += CHAR_HEIGHT_OFFSET;
 		g2.setColor(TEXT_COLOR);
@@ -64,7 +63,6 @@ public class RoundBoard implements BoardStrategy {
 	 * @param yPosition y position of the player (upper left corner)
 	 * @param g2 graphical context
 	 */
-	@Override
 	public void displayPlayer(String playerName, int xPosition, int yPosition, Graphics2D g2) {
 		g2.setColor(TEXT_COLOR);
 		yPosition += CHAR_HEIGHT_OFFSET;
@@ -81,7 +79,6 @@ public class RoundBoard implements BoardStrategy {
 	 * @param width width of the board view
 	 * @param g2 graphical context
 	 */
-	@Override
 	public void drawBoardBackground( int xPosition, int yPosition, int height, int width, Graphics2D g2) {
 		// Draw the background
 		g2.setColor(BACKGROUND_COLOR);
@@ -105,7 +102,6 @@ public class RoundBoard implements BoardStrategy {
 	 * @param g2 graphical context
 	 * @return reference to the shape that represents the Pit
 	 */
-	@Override
 	public Shape drawPit(int numberOfStones, int xPosition, int yPosition, int height, int width, Graphics2D g2) {
 		// Set the stroke to round borders
 		g2.setStroke(BASIC_STROKE);
@@ -162,7 +158,6 @@ public class RoundBoard implements BoardStrategy {
 	 * @param g2 graphical context
 	 * @return reference to the shape that represents the Mancala
 	 */
-	@Override
 	public Shape drawMancala(int numberOfStones, int xPosition, int yPosition, int width, int height, Graphics2D g2) {
 		// Set the stroke to round borders
 		g2.setStroke(BASIC_STROKE);
@@ -206,7 +201,7 @@ public class RoundBoard implements BoardStrategy {
 		// Reset the stroke
 		g2.setStroke(new BasicStroke());	
 		
-		return Shape;
+		return hole;
 	}
 
 }

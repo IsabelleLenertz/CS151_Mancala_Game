@@ -28,9 +28,9 @@ public class SquareBoard implements BoardStrategy {
 	private static final Color STONE_COLOR = new Color(78, 60, 145);
 	private static final Color BORDER_COLOR = new Color(0, 0, 0);
 	private static final Color TEXT_COLOR = new Color(255, 255, 255);
-	final static float DASH1[] = {10.0f};
-    final static BasicStroke DASHED_STROKE = new BasicStroke(4.0f ,BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 10.0f, DASH1, 0.0f);
-    final static BasicStroke BASIC_STROKE = new BasicStroke(1.0f ,BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+	private final static float DASH1[] = {10.0f};
+    private final static BasicStroke DASHED_STROKE = new BasicStroke(4.0f ,BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 10.0f, DASH1, 0.0f);
+    private final static BasicStroke BASIC_STROKE = new BasicStroke(1.0f ,BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
 
 	/**
 	 * Draw a rectangular pit with elliptical stones on the board view
@@ -41,7 +41,6 @@ public class SquareBoard implements BoardStrategy {
 	 * @param g2 graphical context
 	 * @return reference to the shape that represents the Pit
 	 */
-	@Override
 	public Shape drawPit(int numberOfStones, int xPosition, int yPosition, int height, int width, Graphics2D g2) {	
 		// Set the stroke to round borders
 		g2.setStroke(BASIC_STROKE);
@@ -99,7 +98,6 @@ public class SquareBoard implements BoardStrategy {
 	 * @param g2 graphical context
 	 * @return reference to the shape that represents the Mancala
 	 */
-	@Override
 	public Shape drawMancala(int numberOfStones, int xPosition, int yPosition, int width, int height, Graphics2D g2) {
 		// Set the stroke to round borders
 		g2.setStroke(BASIC_STROKE);
@@ -155,7 +153,6 @@ public class SquareBoard implements BoardStrategy {
 	 * @param yPosition y position of the score (upper left corner)
 	 * @param g2 graphical context
 	 */
-	@Override
 	public void displayScore(int score, int xPosition, int yPosition, Graphics2D g2) {
 		yPosition += CHAR_HEIGHT_OFFSET;
 		g2.setColor(TEXT_COLOR);
@@ -179,7 +176,6 @@ public class SquareBoard implements BoardStrategy {
 	 * @param yPosition y position of the player (upper left corner)
 	 * @param g2 graphical context
 	 */
-	@Override
 	public void displayPlayer(String playerName, int xPosition, int yPosition, Graphics2D g2) {
 		g2.setColor(TEXT_COLOR);
 		yPosition += CHAR_HEIGHT_OFFSET;
@@ -196,7 +192,6 @@ public class SquareBoard implements BoardStrategy {
 	 * @param width width of the board view
 	 * @param g2 graphical context
 	 */
-	@Override
 	public void drawBoardBackground(int xPosition, int yPosition, int height, int width, Graphics2D g2) {
 		// Draw the background
 		g2.setColor(BACKGROUND_COLOR);
