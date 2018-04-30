@@ -26,8 +26,8 @@ public class BoardModel {
 		players = new Player[2];
 		us = new UndoStructure();
 		
-		//players[0] = new Player(); // Player 1
-		//players[1] = new Player(); // Player 2
+		players[0] = new Player(new Mancala(), new Pit[6], holes); // Player 1
+		players[1] = new Player(new Mancala(), new Pit[6], holes); // Player 2
 	}
 	
 	/**
