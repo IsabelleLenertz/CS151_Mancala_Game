@@ -67,17 +67,17 @@ public class BoardView extends JLabel implements View {
 			switch(j) {
 				case 0:
 					// Player 1 Mancala
-					strategy.drawMancala(players[0].getScore(), 0, 0, 10, 40, g2);
+					strategy.drawMancala(players[0].getScore(), width / 10, height / 8, width / 10, (3 * height) / 4 , g2);
 					break;
 				case 7:
 					// Player 2 Mancala
-					strategy.drawMancala(players[1].getScore(), 0, 0, 10, 40, g2);
+					strategy.drawMancala(players[1].getScore(), (8 * width) / 10, height / 8, width / 10, (3 * height) / 4 , g2);
 					break;
 				default:
 					// The remaining pits. Don't have to specify which pit is whose
 					// since all pits are identical in appearance.
 					// To do: System for dynamically changing where the pits are drawn.
-					strategy.drawPit(holes[j].getStones(), 0, 0, 10, 10, g2);
+					strategy.drawPit(holes[j].getStones(), 0, 0, width / 10, 10, g2);
 					break;
 			}
 		}
@@ -97,7 +97,6 @@ public class BoardView extends JLabel implements View {
 					break;
 			}
 		}
-		System.out.println("here");
 	}
 	
 	/**
