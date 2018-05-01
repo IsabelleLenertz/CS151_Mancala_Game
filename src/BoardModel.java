@@ -67,7 +67,8 @@ public class BoardModel {
 		// Player one goes first. Save to the undo structure.
 		us.setWhoseTurn(playerOne);
 		
-		
+		// Save the initial holes set up to the undo structure.
+		us.setHoles(holes);
 	}
 	
 	/**
