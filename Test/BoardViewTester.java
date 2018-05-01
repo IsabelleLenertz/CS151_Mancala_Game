@@ -17,9 +17,11 @@ public class BoardViewTester {
 		JPanel panel = new JPanel();
 		BoardModel bm = new BoardModel();
 		RoundBoard rb = new RoundBoard();
+		SquareBoard sb = new SquareBoard();
 		BoardView bv = new BoardView(400);
 		
-		bv.setBoardStrategy(rb);
+		// bv.setBoardStrategy(rb);
+		bv.setBoardStrategy(sb);
 		bv.setBoardModel(bm);
 		bm.setBoardView(bv);
 		
