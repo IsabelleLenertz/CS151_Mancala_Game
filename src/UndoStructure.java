@@ -5,26 +5,28 @@
  *
  */
 public class UndoStructure {
-	private Hole[] holes;
+	private int[] holes;
 	private PlayerEnum whoseTurn;
 	
 	public UndoStructure(){
-		holes = new Hole[13];
+		holes = new int[14];
 	}
 	
 	/**
 	 *
 	 * @param newHoles the most recent set of holes
 	 */
-	public void setHoles(Hole[] holes){
-		this.holes = holes;
+	public void setHoles(Hole[] newHoles){
+		for (int i = 0; i < newHoles.length; i = i + 1) {
+			holes[i] = newHoles[i].getStones();
+		}
 	}
 	
 	/**
 	 *
 	 * @return return most recent set of holes
 	 */
-	public Hole[] getHoles(){
+	public int[] getHoles(){
 	    return holes;
 	}
 	
