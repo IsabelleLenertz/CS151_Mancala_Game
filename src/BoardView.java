@@ -55,51 +55,36 @@ public class BoardView extends JLabel implements View {
 	protected void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		
-		// Start display of the background.
+		// Display the background.
 		strategy.drawBoardBackground(0, 0, 400, 400, g2);
 		
-		Player[] players = model.getPlayers();
-		
-		Hole[] holes = model.getHoles();
-		
 		// Start display of board base pieces.
-		for (int j = 0; j < holes.length; j = j + 1) {
-			switch(j) {
-				case 6:
-					// Player 1 Mancala
-					strategy.drawMancala(players[0].getScore(), (2 * width) / 25, height / 8, (2 * width) / 25, (3 * height) / 4 , g2);
-					break;
-				case 13:
-					// Player 2 Mancala
-					strategy.drawMancala(players[1].getScore(), (21 * width) / 25, height / 8, (2 * width) / 25, (3 * height) / 4 , g2);
-					break;
-				default:
-					// The remaining pits. Don't have to specify which pit is whose
-					// since all pits are identical in appearance.
-					if (0 <= j && j <=5 ) { // lock the y variable to the bottom row
-						strategy.drawPit(holes[j].getStones(), ((5 + (2 * j)) * width) / 20, 0, width / 10, width / 10, g2);
-					} else { // lock the y variable to the top row
-						
-					}
-					break;
-			}
+		Player[] players = model.getPlayers();
+		Hole[] holes = model.getHoles();
+		int holeWidth = (2 * width) / 25;
+		
+		// Display the mancalas.
+		strategy.drawMancala(players[0].getScore(), holeWidth, height / 8, holeWidth, (3 * height) / 4 , g2);
+		strategy.drawMancala(players[1].getScore(), (21 * width) / 25, height / 8, holeWidth, (3 * height) / 4 , g2);
+		
+		int j = 12; // Allow access to pits 12 through 7
+		
+		// Simultaneous display of top and bottom pit rows.
+		for (int i = 0; i < 6; i = i + 1) {
+			strategy.drawPit(holes[i].getStones(), (((3 * i) + 5))*(width / 26), ((25 * height) - (4 * width)) / 25, holeWidth, holeWidth, g2);
+			strategy.drawPit(holes[j].getStones(), (((3 * i) + 5))*(width / 26), height / 8, holeWidth, holeWidth, g2);
+			j --; // Decrement the top row from left to right.
 		}
 		
-		// Start display of game information overlay.
-		for (int i = 0; i < players.length; i = i + 1) {
-			switch(i) {
-				case 0:
-					// Display Player 1
-					strategy.displayPlayer("Player 1", (3 * width) / 21, (2 * height) / 8, g2);
-					strategy.displayScore(players[0].getScore(), width / 20, 0, g2);
-					break;
-				case 1:
-					// Display Player 2
-					strategy.displayPlayer("Player 2", (17 * width) / 20, (2 * height) / 8, g2);
-					strategy.displayScore(players[1].getScore(), (15 * width) / 20, 0, g2);
-					break;
-			}
-		}
+		// Display game information overlay.
+		
+		// Display Player 1 information.
+		strategy.displayPlayer("Player 1", (3 * holeWidth) / 2, (2 * height) / 8, g2);
+		strategy.displayScore(players[0].getScore(), width / 20, 0, g2);
+		
+		// Display Player 2 information.
+		strategy.displayPlayer("Player 2", width - ((3 * holeWidth) / 2), (2 * height) / 8, g2);
+		strategy.displayScore(players[1].getScore(), (15 * width) / 20, 0, g2);
 	}
 	
 	/**
