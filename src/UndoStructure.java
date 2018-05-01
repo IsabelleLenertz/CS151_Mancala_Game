@@ -6,44 +6,42 @@
  */
 public class UndoStructure {
 	private int[] holes;
-    private PlayerEnum whoseTurn;
-    
-    public UndoStructure(){
-        holes = new int[13];
-
-    }
-
-    /**
-     *
-     * @param newHoles the most recent set of holes
-     */
-    public void setHoles(int[] newHoles){
-        holes = newHoles;
-
-    }
-
-    /**
-     *
-     * @return return most recent set of holes
-     */
-    public int[] getHoles(){
-        return holes;
-    }
-
-    /**
-     *
-     * @param p player that's taking turn
-     */
-    public void setWhoseTurn(PlayerEnum p){
-        whoseTurn = p;
-    }
-
-    /**
-     *
-     * @return player that's taking turn
-     */
-
-    public PlayerEnum getWhoseTurn() {
-        return whoseTurn;
-    }
+	private PlayerEnum whoseTurn;
+	
+	public UndoStructure(){
+		holes = new int[13];
+	}
+	
+	/**
+	 *
+	 * @param newHoles the most recent set of holes
+	 */
+	public void setHoles(int[] newHoles){
+		holes = newHoles;
+	}
+	
+	/**
+	 *
+	 * @return return most recent set of holes
+	 */
+	public int[] getHoles(){
+	    return holes;
+	}
+	
+	/**
+	 *
+	 * @param p player that's taking turn
+	 */
+	public void setWhoseTurn(PlayerEnum p){
+	    whoseTurn = p;
+	}
+	
+	/**
+	 *
+	 * @return player that's taking turn
+	 */
+	
+	public PlayerEnum getWhoseTurn() {
+		return whoseTurn;
+	}
 }

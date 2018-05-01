@@ -64,8 +64,10 @@ public class BoardModel {
 		playerOne = PlayerEnum.PLAYER_A;
 		playerTwo = PlayerEnum.PLAYER_A;
 		
-		// Player one goes first.
+		// Player one goes first. Save to the undo structure.
 		us.setWhoseTurn(playerOne);
+		
+		
 	}
 	
 	/**
