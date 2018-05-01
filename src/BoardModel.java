@@ -9,6 +9,8 @@ public class BoardModel {
 	private BoardView view;
 	private Hole[] holes;
 	private Player[] players;
+	private PlayerEnum playerOne;
+	private PlayerEnum playerTwo;
 	private UndoStructure us;
 	
 	/**
@@ -57,6 +59,13 @@ public class BoardModel {
 		
 		// Create the undo data structure.
 		us = new UndoStructure();
+		
+		// Create enum's for the player's
+		playerOne = PlayerEnum.PLAYER_A;
+		playerTwo = PlayerEnum.PLAYER_A;
+		
+		// Player one goes first.
+		us.setWhoseTurn(playerOne);
 	}
 	
 	/**
@@ -90,10 +99,8 @@ public class BoardModel {
 	 * when called.
 	 */
 	public void play() {
-		PlayerEnum playerOne = PlayerEnum.PLAYER_A;
-		PlayerEnum playerTwo = PlayerEnum.PLAYER_A;
 		
-		
+		view.isNotified();
 	}
 	
 	/**

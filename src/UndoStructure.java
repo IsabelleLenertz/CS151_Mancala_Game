@@ -5,8 +5,9 @@
  *
  */
 public class UndoStructure {
-	int[] holes;
-    PlayerEnum whoseTurn;
+	private int[] holes;
+    private PlayerEnum whoseTurn;
+    
     public UndoStructure(){
         holes = new int[13];
 
