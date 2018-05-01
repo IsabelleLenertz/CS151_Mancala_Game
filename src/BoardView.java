@@ -65,19 +65,22 @@ public class BoardView extends JLabel implements View {
 		// Start display of board base pieces.
 		for (int j = 0; j < holes.length; j = j + 1) {
 			switch(j) {
-				case 0:
+				case 6:
 					// Player 1 Mancala
-					strategy.drawMancala(players[0].getScore(), width / 10, height / 8, width / 10, (3 * height) / 4 , g2);
+					strategy.drawMancala(players[0].getScore(), (2 * width) / 25, height / 8, (2 * width) / 25, (3 * height) / 4 , g2);
 					break;
-				case 7:
+				case 13:
 					// Player 2 Mancala
-					strategy.drawMancala(players[1].getScore(), (8 * width) / 10, height / 8, width / 10, (3 * height) / 4 , g2);
+					strategy.drawMancala(players[1].getScore(), (21 * width) / 25, height / 8, (2 * width) / 25, (3 * height) / 4 , g2);
 					break;
 				default:
 					// The remaining pits. Don't have to specify which pit is whose
 					// since all pits are identical in appearance.
-					// To do: System for dynamically changing where the pits are drawn.
-					strategy.drawPit(holes[j].getStones(), 0, 0, width / 10, 10, g2);
+					if (0 <= j && j <=5 ) { // lock the y variable to the bottom row
+						strategy.drawPit(holes[j].getStones(), ((5 + (2 * j)) * width) / 20, 0, width / 10, width / 10, g2);
+					} else { // lock the y variable to the top row
+						
+					}
 					break;
 			}
 		}
