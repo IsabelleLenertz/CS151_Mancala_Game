@@ -20,7 +20,7 @@ public class BoardView extends JLabel implements View {
 	/**
 	 * Single args ctor for the BoardView class. Allows the user to define the size
 	 * for the BoardView. The height of the BoardView is determined by the width.
-	 * @param width    the width
+	 * @param width the width for the BoardView to display at
 	 */
 	public BoardView(int width) {
 		this.width = width;
@@ -46,7 +46,7 @@ public class BoardView extends JLabel implements View {
 	}
 	
 	/**
-	 * Override the inherited paint method from JLabel. This allows for
+	 * Override the inherited paint component method from JLabel. This allows for
 	 * the custom game board to be displayed using the underlying strategy.
 	 * 
 	 * @param g the default argument associated with this inherited method
@@ -87,13 +87,13 @@ public class BoardView extends JLabel implements View {
 			switch(i) {
 				case 0:
 					// Display Player 1
-					strategy.displayPlayer("Player 1", 0, 0, g2);
-					strategy.displayScore(players[0].getScore(), 0, 0, g2);
+					strategy.displayPlayer("Player 1", (3 * width) / 21, (2 * height) / 8, g2);
+					strategy.displayScore(players[0].getScore(), width / 20, 0, g2);
 					break;
 				case 1:
 					// Display Player 2
-					strategy.displayPlayer("Player 2", 0, 0, g2);
-					strategy.displayScore(players[1].getScore(), 0, 0, g2);
+					strategy.displayPlayer("Player 2", (17 * width) / 20, (2 * height) / 8, g2);
+					strategy.displayScore(players[1].getScore(), (15 * width) / 20, 0, g2);
 					break;
 			}
 		}
