@@ -14,11 +14,9 @@ public class BoardModel {
 	private UndoStructure us;
 	
 	/**
-	 * Default ctor for the class. Takes a single argument
-	 * that changes what the style of the final display will
-	 * be for the user.
-	 * 
-	 * @param view BoardView instance that determines style of board for user
+	 * Default no-args ctor for the BoardModel class. Initializes all underlying data structures except
+	 * for the underlying BoardView. BoardView MUST be initialized separately and then enclosed in
+	 * this BoardModel using setBoardView(BoardView view).
 	 */
 	public BoardModel() {
 		// Create the mancalas.
@@ -102,7 +100,11 @@ public class BoardModel {
 	 * when called.
 	 */
 	public void play() {
-		
+		if (us.getWhoseTurn() == playerOne) {
+			// TODO: Player 1 logic
+		} else {
+			// TODO: Player 2 logic
+		}
 		view.isNotified();
 	}
 	

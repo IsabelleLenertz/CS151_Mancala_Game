@@ -42,7 +42,6 @@ public class UndoStructure {
 	 *
 	 * @return player that's taking turn
 	 */
-	
 	public PlayerEnum getWhoseTurn() {
 		return whoseTurn;
 	}
