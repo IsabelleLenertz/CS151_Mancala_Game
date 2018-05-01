@@ -67,13 +67,10 @@ public class BoardView extends JLabel implements View {
 		strategy.drawMancala(players[0].getScore(), holeWidth, height / 8, holeWidth, (3 * height) / 4 , g2);
 		strategy.drawMancala(players[1].getScore(), (21 * width) / 25, height / 8, holeWidth, (3 * height) / 4 , g2);
 		
-		int j = 12; // Allow access to pits 12 through 7
-		
 		// Simultaneous display of top and bottom pit rows.
 		for (int i = 0; i < 6; i = i + 1) {
 			strategy.drawPit(holes[i].getStones(), (((3 * i) + 5))*(width / 26), ((25 * height) - (4 * width)) / 25, holeWidth, holeWidth, g2);
-			strategy.drawPit(holes[j].getStones(), (((3 * i) + 5))*(width / 26), height / 8, holeWidth, holeWidth, g2);
-			j --; // Decrement the top row from left to right.
+			strategy.drawPit(holes[12 - i].getStones(), (((3 * i) + 5))*(width / 26), height / 8, holeWidth, holeWidth, g2);
 		}
 		
 		// Display game information overlay.
