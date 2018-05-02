@@ -1,3 +1,6 @@
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 /**
  * Represents the model object which stores
  * references to all high level data structures used to
@@ -109,11 +112,20 @@ public class BoardModel {
 	}
 	
 	/**
-	 * Mutator for the BoardView associated with this BoardModel.
+	 * Mutator for the BoardView associated with this BoardModel. Attachs a mouse listener
+	 * to the view. The listener acts as the controller in the model/view/controller design
+	 * strategy.
 	 * 
 	 * @param view the BoardView for this BoardModel
 	 */
 	public void setBoardView(BoardView view) {
+		view.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				int x = e.getX();
+				int y = e.getY();
+				System.out.println("x = " + x + ", y = " + y);
+			}
+		});
 		this.view = view;
 	}
 }
