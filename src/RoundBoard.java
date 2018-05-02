@@ -46,6 +46,14 @@ public class RoundBoard implements BoardStrategy {
 		
 	}
 	
+	public void displayPitLabel(String label, int xPosition, int yPosition, Graphics2D g2) {
+		yPosition += CHAR_HEIGHT_OFFSET;
+		g2.setColor(TEXT_COLOR);
+		g2.drawString(label, xPosition, yPosition);
+
+	}
+
+	
 	/**
 	 * Display the name of the player vertically on the board view
 	 * [p]

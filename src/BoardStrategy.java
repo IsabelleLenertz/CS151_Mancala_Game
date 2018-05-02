@@ -60,4 +60,6 @@ public interface BoardStrategy {
 	 */
 	public void drawBoardBackground(int xPosition, int yPosition, int height, int width, Graphics2D g2);
 	
+	public void displayPitLabel(String label, int xPosition, int yPosition, Graphics2D g2);
+	
 }

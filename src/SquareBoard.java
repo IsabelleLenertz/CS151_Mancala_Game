@@ -185,6 +185,13 @@ public class SquareBoard implements BoardStrategy {
 		}
 		
 	}
+	
+	public void displayPitLabel(String label, int xPosition, int yPosition, Graphics2D g2) {
+		yPosition += CHAR_HEIGHT_OFFSET;
+		g2.setColor(TEXT_COLOR);
+		g2.drawString(label, xPosition, yPosition);
+
+	}
 
 	/**
 	 * Display the boarder and background of the board on the board view
