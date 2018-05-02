@@ -69,19 +69,24 @@ public class BoardView extends JLabel implements View {
 		
 		// Simultaneous display of top and bottom pit rows.
 		for (int i = 0; i < 6; i = i + 1) {
+			// Player 1 row
 			strategy.drawPit(holes[i].getStones(), (((3 * i) + 5))*(width / 26), ((25 * height) - (4 * width)) / 25, holeWidth, holeWidth, g2);
+			strategy.displayPitLabel("A" + (i + 1), (((3 * i) + 5))*(width / 26), ((25 * height) - (5 * width)) / 25, g2);
+			
+			// Player 2 row
 			strategy.drawPit(holes[12 - i].getStones(), (((3 * i) + 5))*(width / 26), height / 8, holeWidth, holeWidth, g2);
+			strategy.displayPitLabel("B" + (6 - i), (((3 * i) + 5))*(width / 26), (2 * height) / 7, g2);
 		}
 		
 		// Display game information overlay.
 		
 		// Display Player 1 information.
-		strategy.displayPlayer("Player 1", (3 * holeWidth) / 2, (2 * height) / 8, g2);
-		strategy.displayScore(players[0].getScore(), width / 20, 0, g2);
+		strategy.displayPlayer("MANCALA A", holeWidth / 2, height / 5, g2);
+		strategy.displayScore(players[0].getScore(), width / 20, height / 25, g2);
 		
 		// Display Player 2 information.
-		strategy.displayPlayer("Player 2", width - ((3 * holeWidth) / 2), (2 * height) / 8, g2);
-		strategy.displayScore(players[1].getScore(), (15 * width) / 20, 0, g2);
+		strategy.displayPlayer("MANCALA B", width - ( (3 * holeWidth) / 4), height / 5, g2);
+		strategy.displayScore(players[1].getScore(), (17 * width) / 21, height / 25, g2);
 	}
 	
 	/**

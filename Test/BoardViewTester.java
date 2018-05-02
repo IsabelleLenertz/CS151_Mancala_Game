@@ -20,8 +20,7 @@ public class BoardViewTester {
 		SquareBoard sb = new SquareBoard();
 		BoardView bv = new BoardView(400);
 		
-		// bv.setBoardStrategy(rb);
-		bv.setBoardStrategy(sb);
+		bv.setBoardStrategy(rb);
 		bv.setBoardModel(bm);
 		bm.setBoardView(bv);
 		
