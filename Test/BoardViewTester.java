@@ -15,12 +15,12 @@ public class BoardViewTester {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
-		BoardModel bm = new BoardModel();
+		BoardModel bm = new BoardModel(4);
 		RoundBoard rb = new RoundBoard();
 		SquareBoard sb = new SquareBoard();
 		BoardView bv = new BoardView(400);
 		
-		bv.setBoardStrategy(rb);
+		bv.setBoardStrategy(sb);
 		bv.setBoardModel(bm);
 		bm.setBoardView(bv);
 		

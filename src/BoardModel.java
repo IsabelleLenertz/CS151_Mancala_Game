@@ -13,17 +13,22 @@ import java.awt.event.MouseEvent;
 public class BoardModel {
 	private BoardView view;
 	private Hole[] holes;
+	private int initialStoneCount;
 	private Player[] players;
 	private PlayerEnum playerOne;
 	private PlayerEnum playerTwo;
 	private UndoStructure us;
 	
 	/**
-	 * Default no-args ctor for the BoardModel class. Initializes all underlying data structures except
+	 * Default singe-args ctor for the BoardModel class. Initializes all underlying data structures except
 	 * for the underlying BoardView. BoardView MUST be initialized separately and then enclosed in
 	 * this BoardModel using setBoardView(BoardView view).
+	 * 
+	 * @param int initialStoneCount the number of stones in each pit at the start of the game
 	 */
-	public BoardModel() {
+	public BoardModel(int initialStoneCount) {
+		this.initialStoneCount = initialStoneCount;
+		
 		// Create the mancalas.
 		Mancala playerOneMancala = new Mancala();
 		Mancala playerTwoMancala = new Mancala();
@@ -33,8 +38,13 @@ public class BoardModel {
 		Pit[] playerTwoPits = new Pit[6];
 		
 		for (int i = 0; i < playerOnePits.length; i = i + 1) {
+			// Player 1's pits
 			playerOnePits[i] = new Pit();
+			playerOnePits[i].stoneMutator(initialStoneCount);
+			
+			// Player 2's pits
 			playerTwoPits[i] = new Pit();
+			playerTwoPits[i].stoneMutator(initialStoneCount);
 		}
 		
 		// Create the master hole data structure.
@@ -123,23 +133,30 @@ public class BoardModel {
 	public void setBoardView(BoardView view) {
 		// Get the shapes created during the first display of the view.
 		final Shape[] shapes = view.getShapes();
+		
 		// Attach a listener to the view for clicks.
 		view.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				// When a click on the view is detected, we will check to see if
 				// it was a on a pit.
 				Point p = e.getPoint(); // The location of the click.
-				int clickedPitIndex = -1;
+				
+				// The index of the clicked hole. -1 if it there is no clicked hole
+				int clickedHoleIndex = -1;
+				
 				// Loop through the hole shapes and see if the click was in one
 				// of them.
 				for (int i = 0; i < shapes.length; i = i + 1) {
 					if (shapes[i].contains(p)) { // A valid click.
-						clickedPitIndex = clickedPitIndex + i + 1; // Save the index of hole clicked.
+						clickedHoleIndex = clickedHoleIndex + i + 1; // Save the index of hole clicked.
 					}
 				}
-				System.out.println(clickedPitIndex);
+				
+				System.out.println(clickedHoleIndex);
 			}
 		});
+		
+		// Enclose the modified view in this BoardModel.
 		this.view = view;
 	}
 }

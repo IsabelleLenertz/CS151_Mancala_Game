@@ -41,6 +41,11 @@ public class BoardView extends JLabel implements View {
 		return strategy;
 	}
 	
+	/**
+	 * Accessor for the location data of each hole.
+	 * 
+	 * @return a Shape[] where each Shape represents a Hole
+	 */
 	public Shape[] getShapes() {
 		return shapes;
 	}
