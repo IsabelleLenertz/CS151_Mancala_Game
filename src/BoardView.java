@@ -1,6 +1,7 @@
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Shape;
 
 import javax.swing.JLabel;
 
@@ -16,6 +17,7 @@ public class BoardView extends JLabel implements View {
 	private Dimension size;
 	private int height;
 	private int width;
+	private Shape[] shapes;
 	
 	/**
 	 * Single args ctor for the BoardView class. Allows the user to define the size
@@ -27,6 +29,7 @@ public class BoardView extends JLabel implements View {
 		height = width / 2;
 		size = new Dimension(width, height);
 		setPreferredSize(size);
+		shapes = new Shape[14];
 	}
 	
 	/**
@@ -36,6 +39,10 @@ public class BoardView extends JLabel implements View {
 	 */
 	public BoardStrategy getBoardStrategy() {
 		return strategy;
+	}
+	
+	public Shape[] getShapes() {
+		return shapes;
 	}
 	
 	/**
@@ -64,28 +71,28 @@ public class BoardView extends JLabel implements View {
 		int holeWidth = (2 * width) / 25;
 		
 		// Display the mancalas.
-		strategy.drawMancala(players[0].getScore(), holeWidth, height / 8, holeWidth, (3 * height) / 4 , g2);
-		strategy.drawMancala(players[1].getScore(), (21 * width) / 25, height / 8, holeWidth, (3 * height) / 4 , g2);
+		shapes[6] = strategy.drawMancala(players[0].getScore(), holeWidth, height / 8, holeWidth, (3 * height) / 4 , g2);
+		shapes[13] = strategy.drawMancala(players[1].getScore(), (21 * width) / 25, height / 8, holeWidth, (3 * height) / 4 , g2);
 		
 		// Simultaneous display of top and bottom pit rows.
 		for (int i = 0; i < 6; i = i + 1) {
 			// Player 1 row
-			strategy.drawPit(holes[i].getStones(), (((3 * i) + 5))*(width / 26), ((25 * height) - (4 * width)) / 25, holeWidth, holeWidth, g2);
+			shapes[i] = strategy.drawPit(holes[i].getStones(), (((3 * i) + 5))*(width / 26), ((25 * height) - (4 * width)) / 25, holeWidth, holeWidth, g2);
 			strategy.displayPitLabel("A" + (i + 1), (((3 * i) + 5))*(width / 26), ((25 * height) - (5 * width)) / 25, g2);
 			
 			// Player 2 row
-			strategy.drawPit(holes[12 - i].getStones(), (((3 * i) + 5))*(width / 26), height / 8, holeWidth, holeWidth, g2);
+			shapes[12 - i] = strategy.drawPit(holes[12 - i].getStones(), (((3 * i) + 5))*(width / 26), height / 8, holeWidth, holeWidth, g2);
 			strategy.displayPitLabel("B" + (6 - i), (((3 * i) + 5))*(width / 26), (2 * height) / 7, g2);
 		}
 		
 		// Display game information overlay.
 		
 		// Display Player 1 information.
-		strategy.displayPlayer("MANCALA A", holeWidth / 2, height / 5, g2);
+		strategy.displayPlayer("MANCALA B", holeWidth / 2, height / 5, g2);
 		strategy.displayScore(players[0].getScore(), width / 20, height / 25, g2);
 		
 		// Display Player 2 information.
-		strategy.displayPlayer("MANCALA B", width - ( (3 * holeWidth) / 4), height / 5, g2);
+		strategy.displayPlayer("MANCALA A", width - ( (3 * holeWidth) / 4), height / 5, g2);
 		strategy.displayScore(players[1].getScore(), (17 * width) / 21, height / 25, g2);
 	}
 	

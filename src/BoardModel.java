@@ -1,4 +1,5 @@
 import java.awt.Point;
+import java.awt.Shape;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -37,10 +38,10 @@ public class BoardModel {
 		}
 		
 		// Create the master hole data structure.
-		holes = new Hole[14]; // holes[13] is player 2 mancala
-		                      // holes[0] to holes[5] are player 1's pits
+		holes = new Hole[14]; // holes[0] to holes[5] are player 1's pits
 		                      // holes[6] is player 1 mancala
 		                      // holes[7] to holes[12] are player 2's pits
+		                      // holes[13] is player 2 mancala
 		
 		// Load the mancalas into holes.
 		holes[6] = playerOneMancala;
@@ -120,11 +121,14 @@ public class BoardModel {
 	 * @param view the BoardView for this BoardModel
 	 */
 	public void setBoardView(BoardView view) {
+		final Shape[] shapes = view.getShapes();
 		view.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				Point p = e.getPoint();
-				for (int i = 0; i < holes.length; i = i + 1) {
-					
+				for (int i = 0; i < shapes.length; i = i + 1) {
+					if (shapes[i].contains(p)) {
+						System.out.println("You clicked a pit");
+					}
 				}
 			}
 		});
