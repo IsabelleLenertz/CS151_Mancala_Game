@@ -49,6 +49,11 @@ public class StartWindow extends JFrame{
 			  } 
 			} );
 		startNow = new JButton("Start Now!");
+		startNow.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				startGame();
+			}
+		});
 		Box stoneBox = Box.createHorizontalBox();
 		Box themeBox = Box.createHorizontalBox();
 		Box startBox = Box.createHorizontalBox();
@@ -68,6 +73,24 @@ public class StartWindow extends JFrame{
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setVisible(true);
+	}
+	public int getNumberOfStone() {
+		return numberOfStone;
+	}
+	public BoardStrategy getStragtegy() {
+		return selectedStrategy;
+	}
+	public void startGame() {
+		BoardModel boardModel = new BoardModel();
+		BoardView boardView = new BoardView(1000);
+		boardView.setBoardModel(boardModel);
+		boardModel.setBoardView(boardView);
+		boardView.setBoardStrategy(selectedStrategy);
+		JFrame gameFrame = new JFrame();
+		gameFrame.setSize(1000,500);
+		gameFrame.add(boardView);
+		gameFrame.setVisible(true);
+		System.out.println("reached start game");
 	}
 	
 }
