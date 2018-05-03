@@ -111,8 +111,7 @@ public class BoardModel {
 	}
 	
 	/**
-	 * Method which contains the logic for the game. Initiates a new game
-	 * when called.
+	 * Method which contains the main logic for the game.
 	 */
 	public void play() {
 		if (us.getWhoseTurn() == playerOne) {
