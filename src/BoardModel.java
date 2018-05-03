@@ -121,14 +121,20 @@ public class BoardModel {
 	 * @param view the BoardView for this BoardModel
 	 */
 	public void setBoardView(BoardView view) {
+		// Get the shapes created during the first display of the view.
 		final Shape[] shapes = view.getShapes();
+		// Attach a listener to the view for clicks.
 		view.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				Point p = e.getPoint();
+				// When a click on the view is detected, we will check to see if
+				// it was a on a pit.
+				Point p = e.getPoint(); // The location of the click.
 				int clickedPitIndex = -1;
+				// Loop through the hole shapes and see if the click was in one
+				// of them.
 				for (int i = 0; i < shapes.length; i = i + 1) {
-					if (shapes[i].contains(p)) {
-						clickedPitIndex = clickedPitIndex + i + 1;
+					if (shapes[i].contains(p)) { // A valid click.
+						clickedPitIndex = clickedPitIndex + i + 1; // Save the index of hole clicked.
 					}
 				}
 				System.out.println(clickedPitIndex);
