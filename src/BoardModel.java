@@ -128,7 +128,6 @@ public class BoardModel {
 			if (7 <= index && index <= 12) { // Check if a valid player 2 pit was selected
 				players[1].play(index);      // Player 2 takes their turn
 				us.setWhoseTurn(playerOne);  // Player 1 is next
-				view.isNotified();           // Update the view
 				validTurn = true;            // Valid turn, set the flag.
 			}
 		}
