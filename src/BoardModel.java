@@ -125,11 +125,13 @@ public class BoardModel {
 		view.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				Point p = e.getPoint();
+				int clickedPitIndex = -1;
 				for (int i = 0; i < shapes.length; i = i + 1) {
 					if (shapes[i].contains(p)) {
-						System.out.println("You clicked a pit");
+						clickedPitIndex = clickedPitIndex + i + 1;
 					}
 				}
+				System.out.println(clickedPitIndex);
 			}
 		});
 		this.view = view;
