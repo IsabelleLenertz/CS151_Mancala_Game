@@ -81,7 +81,7 @@ public class StartWindow extends JFrame{
 		return selectedStrategy;
 	}
 	public void startGame() {
-		BoardModel boardModel = new BoardModel();
+		BoardModel boardModel = new BoardModel(numberOfStone);
 		BoardView boardView = new BoardView(1000);
 		boardView.setBoardModel(boardModel);
 		boardModel.setBoardView(boardView);
