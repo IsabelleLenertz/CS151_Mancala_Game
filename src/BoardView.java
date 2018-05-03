@@ -76,8 +76,8 @@ public class BoardView extends JLabel implements View {
 		int holeWidth = (2 * width) / 25;
 		
 		// Display the mancalas.
-		shapes[13] = strategy.drawMancala(players[0].getScore(), holeWidth, height / 8, holeWidth, (3 * height) / 4 , g2);
-		shapes[6] = strategy.drawMancala(players[1].getScore(), (21 * width) / 25, height / 8, holeWidth, (3 * height) / 4 , g2);
+		shapes[6] = strategy.drawMancala(players[0].getScore(), holeWidth, height / 8, holeWidth, (3 * height) / 4 , g2);
+		shapes[13] = strategy.drawMancala(players[1].getScore(), (21 * width) / 25, height / 8, holeWidth, (3 * height) / 4 , g2);
 		
 		// Simultaneous display of top and bottom pit rows.
 		for (int i = 0; i < 6; i = i + 1) {

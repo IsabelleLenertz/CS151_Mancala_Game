@@ -75,7 +75,7 @@ public class BoardModel {
 		
 		// Create enum's for the player's
 		playerOne = PlayerEnum.PLAYER_A;
-		playerTwo = PlayerEnum.PLAYER_A;
+		playerTwo = PlayerEnum.PLAYER_B;
 		
 		// Player one goes first. Save to the undo structure.
 		us.setWhoseTurn(playerOne);
@@ -113,13 +113,20 @@ public class BoardModel {
 	/**
 	 * Method which contains the main logic for the game.
 	 */
-	public void play() {
-		if (us.getWhoseTurn() == playerOne) {
-			// TODO: Player 1 logic
-		} else {
-			// TODO: Player 2 logic
+	public void play(int index) {
+		if (us.getWhoseTurn() == playerOne) { // Player 1's turn
+			if (0 <= index && index <= 5) {   // Check if a valid player 1 pit was selected
+				players[0].play(index);       // Player 1 takes their turn
+				us.setWhoseTurn(playerTwo);   // Player 2 is next
+				view.isNotified();            // Update the view of the changes in the model
+			}
+		} else {                             // Player 2's turn
+			if (7 <= index && index <= 12) { // Check if a valid player 2 pit was selected
+				players[1].play(index);      // Player 2 takes their turn
+				us.setWhoseTurn(playerOne);  // Player 1 is next
+				view.isNotified();           // Update the view
+			}
 		}
-		view.isNotified();
 	}
 	
 	/**
@@ -151,7 +158,9 @@ public class BoardModel {
 					}
 				}
 				
-				System.out.println(clickedHoleIndex);
+				if (-1 < clickedHoleIndex) {
+					play(clickedHoleIndex);
+				}
 			}
 		});
 		
