@@ -114,18 +114,27 @@ public class BoardModel {
 	 * Method which contains the main logic for the game.
 	 */
 	public void play(int index) {
+		us.setHoles(holes); // Save the holes in case of undo
+		
+		boolean validTurn = false; // Flag is set to true when model is changed.
+		
 		if (us.getWhoseTurn() == playerOne) { // Player 1's turn
 			if (0 <= index && index <= 5) {   // Check if a valid player 1 pit was selected
 				players[0].play(index);       // Player 1 takes their turn
 				us.setWhoseTurn(playerTwo);   // Player 2 is next
-				view.isNotified();            // Update the view of the changes in the model
+				validTurn = true;             // Valid turn, set the flag.
 			}
 		} else {                             // Player 2's turn
 			if (7 <= index && index <= 12) { // Check if a valid player 2 pit was selected
 				players[1].play(index);      // Player 2 takes their turn
 				us.setWhoseTurn(playerOne);  // Player 1 is next
 				view.isNotified();           // Update the view
+				validTurn = true;            // Valid turn, set the flag.
 			}
+		}
+		
+		if (validTurn) {       // Check to see if the model was changed.
+			view.isNotified(); // Update the view to reflect the changes to the model.
 		}
 	}
 	
@@ -158,8 +167,8 @@ public class BoardModel {
 					}
 				}
 				
-				if (-1 < clickedHoleIndex) {
-					play(clickedHoleIndex);
+				if (-1 < clickedHoleIndex) { // Can play the game.
+					play(clickedHoleIndex);  // Play the game.
 				}
 			}
 		});
