@@ -1,3 +1,4 @@
+import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -121,9 +122,10 @@ public class BoardModel {
 	public void setBoardView(BoardView view) {
 		view.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				int x = e.getX();
-				int y = e.getY();
-				System.out.println("x = " + x + ", y = " + y);
+				Point p = e.getPoint();
+				for (int i = 0; i < holes.length; i = i + 1) {
+					
+				}
 			}
 		});
 		this.view = view;
