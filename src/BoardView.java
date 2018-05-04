@@ -1,8 +1,13 @@
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Shape;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.geom.Rectangle2D;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 
 /**
@@ -29,7 +34,7 @@ public class BoardView extends JLabel implements View {
 		this.height = height;
 		size = new Dimension(width, this.height);
 		setPreferredSize(size);
-		shapes = new Shape[14];
+		shapes = new Shape[15];
 	}
 	
 	/**
@@ -99,6 +104,14 @@ public class BoardView extends JLabel implements View {
 		// Display Player 2 information.
 		strategy.displayPlayer("MANCALA A", width - ( (3 * holeWidth) / 4), height / 5, g2);
 		strategy.displayScore(players[0].getScore(), (17 * width) / 21, height / 25, g2);
+		
+		// Draw the undo button.
+		Shape undoButton = new Rectangle2D.Double(width / 2, 2 * height / 5, (7.0 / 10.0) * (2 * holeWidth), (7.0 / 10.0) * holeWidth);
+		g2.setColor(Color.WHITE);
+		g2.fill(undoButton);
+		g2.setColor(Color.BLACK);
+		g2.drawString("UNDO", (11 * width) / 21, 5 * height / 11);
+		shapes[14] = undoButton;
 	}
 	
 	/**

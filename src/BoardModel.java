@@ -166,8 +166,10 @@ public class BoardModel {
 					}
 				}
 				
-				if (-1 < clickedHoleIndex) { // Can play the game.
+				if (-1 < clickedHoleIndex && clickedHoleIndex < 14) { // Can play the game.
 					play(clickedHoleIndex);  // Play the game.
+				} else if (clickedHoleIndex == 14) {
+					// TODO: Undo move logic
 				}
 			}
 		});
