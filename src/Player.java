@@ -47,7 +47,7 @@ public class Player {
 	/**
 	 * End the player's turn
 	 */
-	private void endTurn() {
+	public void endTurn() {
 		this.turn = false;
 	}
 	

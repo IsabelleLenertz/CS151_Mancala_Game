@@ -77,7 +77,10 @@ public class BoardModel {
 		playerOne = PlayerEnum.PLAYER_A;
 		playerTwo = PlayerEnum.PLAYER_B;
 		
-		// Player one goes first. Save to the undo structure.
+		// Player one goes first.
+		players[0].startTurn();
+		
+		// Save to the undo structure.
 		us.setWhoseTurn(playerOne);
 		
 		// Save the initial holes set up to the undo structure.
@@ -116,25 +119,21 @@ public class BoardModel {
 	public void play(int index) {
 		us.setHoles(holes); // Save the holes in case of undo
 		
-		boolean validTurn = false; // Flag is set to true when model is changed.
-		
-		if (us.getWhoseTurn() == playerOne) { // Player 1's turn
-			if (0 <= index && index <= 5) {   // Check if a valid player 1 pit was selected
-				players[0].play(index);       // Player 1 takes their turn
-				us.setWhoseTurn(playerTwo);   // Player 2 is next
-				validTurn = true;             // Valid turn, set the flag.
+		if (players[0].isTurn()) {          // Check Player 1 can take their turn.
+			if (0 <= index && index <= 5) { // Check a Player 1 pit was selected.
+				players[0].play(index);     // Player 1 takes their turn.
+				players[1].startTurn();     // Player 1's turn is over. Player 2 can go.
+				us.setWhoseTurn(playerOne);
 			}
-		} else {                             // Player 2's turn
-			if (7 <= index && index <= 12) { // Check if a valid player 2 pit was selected
-				players[1].play(index);      // Player 2 takes their turn
-				us.setWhoseTurn(playerOne);  // Player 1 is next
-				validTurn = true;            // Valid turn, set the flag.
+		} else if (players[1].isTurn()) {                             // Check Player 2 can take their turn.
+			if (7 <= index && index <= 12) { // Check a Player 2 pit was selected.
+				players[1].play(index);      // Player 2 takes their turn.
+				players[0].startTurn();      // Player 2's turn is over. Player 1 can go
+				us.setWhoseTurn(playerTwo);
 			}
 		}
 		
-		if (validTurn) {       // Check to see if the model was changed.
-			view.isNotified(); // Update the view to reflect the changes to the model.
-		}
+		view.isNotified();
 	}
 	
 	/**
@@ -142,14 +141,14 @@ public class BoardModel {
 	 * to the view. The listener acts as the controller in the model/view/controller design
 	 * strategy.
 	 * 
-	 * @param view the BoardView for this BoardModel
+	 * @param newView the BoardView for this BoardModel
 	 */
-	public void setBoardView(BoardView view) {
+	public void setBoardView(BoardView newView) {
 		// Get the shapes created during the first display of the view.
-		final Shape[] shapes = view.getShapes();
+		final Shape[] shapes = newView.getShapes();
 		
 		// Attach a listener to the view for clicks.
-		view.addMouseListener(new MouseAdapter() {
+		newView.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				// When a click on the view is detected, we will check to see if
 				// it was a on a pit.
@@ -169,14 +168,27 @@ public class BoardModel {
 				if (-1 < clickedHoleIndex && clickedHoleIndex < 14) { // Can play the game.
 					play(clickedHoleIndex);  // Play the game.
 				} else if (clickedHoleIndex == 14) {
+					System.out.println(us.getWhoseTurn());
 					for(int i = 0;i<14;i++) {
-						holes[i].stoneMutator(us.getHoles()[i]);// set stones from undostructure
+						holes[i].stoneMutator(us.getHoles()[i]);// Set stones from UndoStructure.
 					}
+					
+					// Return to the previous turn.
+					if (us.getWhoseTurn() == playerOne) {
+						players[0].startTurn();
+						players[1].endTurn();
+					} else if (us.getWhoseTurn() == playerTwo) {
+						players[0].endTurn();
+						players[1].startTurn();
+					}
+					
+					// Update view.
+					view.isNotified();
 				}
 			}
 		});
 		
 		// Enclose the modified view in this BoardModel.
-		this.view = view;
+		view = newView;
 	}
 }
