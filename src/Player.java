@@ -74,12 +74,12 @@ public class Player {
 			// Check if the hole is not the other player's mancala
 			if(holes[holeIndex].getClass() == mancala.getClass()) {
 				if(holes[holeIndex] != mancala) {
-					holeIndex = (holeIndex + 1)%13;
+					holeIndex = (holeIndex + 1)%14;
 				}
 			}
 			// Add a stone and move on to the next hole
 			holes[holeIndex].incrementStones();
-			holeIndex = (holeIndex + 1)%13;
+			holeIndex = (holeIndex + 1)%14;
 			stonesCollected--;
 		}
 		// Make sure the index is not out of bound when decreasing to be at the last hole a stone was added too.
