@@ -6,7 +6,11 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-
+/**
+ * start window is for users to choose initial stones and theme
+ * @author yilinzhao
+ *@date 05/02/18
+ */
 public class StartWindow extends JFrame{
 	JButton threeStone;
 	JButton fourStone;
@@ -15,7 +19,9 @@ public class StartWindow extends JFrame{
 	JButton startNow;
 	int numberOfStone;
 	BoardStrategy selectedStrategy;
-
+/**
+ * ctor that creates five buttons, add listeners to the buttons
+ */
 	public StartWindow() {
 		super("Mancala");
 		this.setSize(500,400);
@@ -80,6 +86,9 @@ public class StartWindow extends JFrame{
 	public BoardStrategy getStragtegy() {
 		return selectedStrategy;
 	}
+	/**
+	 * start main game screen
+	 */
 	public void startGame() {
 		BoardModel boardModel = new BoardModel(numberOfStone);
 		BoardView boardView = new BoardView(1000);
