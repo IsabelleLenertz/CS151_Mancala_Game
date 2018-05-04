@@ -1,8 +1,13 @@
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Shape;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.geom.Rectangle2D;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 
 /**
@@ -24,12 +29,12 @@ public class BoardView extends JLabel implements View {
 	 * for the BoardView. The height of the BoardView is determined by the width.
 	 * @param width the width for the BoardView to display at
 	 */
-	public BoardView(int width) {
+	public BoardView(int width, int height) {
 		this.width = width;
-		height = width / 2;
-		size = new Dimension(width, height);
+		this.height = height;
+		size = new Dimension(width, this.height);
 		setPreferredSize(size);
-		shapes = new Shape[14];
+		shapes = new Shape[15];
 	}
 	
 	/**
@@ -68,7 +73,7 @@ public class BoardView extends JLabel implements View {
 		Graphics2D g2 = (Graphics2D) g;
 		
 		// Display the background.
-		strategy.drawBoardBackground(0, 0, 400, 400, g2);
+		strategy.drawBoardBackground(0, 0, height, width, g2);
 		
 		// Start display of board base pieces.
 		Player[] players = model.getPlayers();
@@ -76,8 +81,8 @@ public class BoardView extends JLabel implements View {
 		int holeWidth = (2 * width) / 25;
 		
 		// Display the mancalas.
-		shapes[13] = strategy.drawMancala(players[0].getScore(), holeWidth, height / 8, holeWidth, (3 * height) / 4 , g2);
-		shapes[6] = strategy.drawMancala(players[1].getScore(), (21 * width) / 25, height / 8, holeWidth, (3 * height) / 4 , g2);
+		shapes[6] = strategy.drawMancala(players[1].getScore(), holeWidth, height / 8, holeWidth, (3 * height) / 4 , g2);
+		shapes[13] = strategy.drawMancala(players[0].getScore(), (21 * width) / 25, height / 8, holeWidth, (3 * height) / 4 , g2);
 		
 		// Simultaneous display of top and bottom pit rows.
 		for (int i = 0; i < 6; i = i + 1) {
@@ -94,11 +99,19 @@ public class BoardView extends JLabel implements View {
 		
 		// Display Player 1 information.
 		strategy.displayPlayer("MANCALA B", holeWidth / 2, height / 5, g2);
-		strategy.displayScore(players[0].getScore(), width / 20, height / 25, g2);
+		strategy.displayScore(players[1].getScore(), width / 20, height / 25, g2);
 		
 		// Display Player 2 information.
 		strategy.displayPlayer("MANCALA A", width - ( (3 * holeWidth) / 4), height / 5, g2);
-		strategy.displayScore(players[1].getScore(), (17 * width) / 21, height / 25, g2);
+		strategy.displayScore(players[0].getScore(), (17 * width) / 21, height / 25, g2);
+		
+		// Draw the undo button.
+		Shape undoButton = new Rectangle2D.Double(width / 2, 2 * height / 5, (7.0 / 10.0) * (2 * holeWidth), (7.0 / 10.0) * holeWidth);
+		g2.setColor(Color.WHITE);
+		g2.fill(undoButton);
+		g2.setColor(Color.BLACK);
+		g2.drawString("UNDO", (11 * width) / 21, 5 * height / 11);
+		shapes[14] = undoButton;
 	}
 	
 	/**
@@ -120,14 +133,24 @@ public class BoardView extends JLabel implements View {
 	}
 	
 	/**
-	 * Setter for the BoardView width. BoardView height is tied to the width.
+	 * Setter for the BoardView width.
 	 * 
 	 * @param width the new width for this BoardView
 	 */
 	public void setWidth(int width) {
 		this.width = width;
-		height = width / 2;
-		size = new Dimension(width, height);
+		size = new Dimension(this.width, height);
+		setPreferredSize(size);
+	}
+	
+	/**
+	 * Setter for the BoardView height.
+	 * 
+	 * @param width the new height for this BoardView
+	 */
+	public void setHeight(int height) {
+		this.height = height;
+		size = new Dimension(width, this.height);
 		setPreferredSize(size);
 	}
 }
