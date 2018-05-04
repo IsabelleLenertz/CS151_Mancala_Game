@@ -169,7 +169,9 @@ public class BoardModel {
 				if (-1 < clickedHoleIndex && clickedHoleIndex < 14) { // Can play the game.
 					play(clickedHoleIndex);  // Play the game.
 				} else if (clickedHoleIndex == 14) {
-					// TODO: Undo move logic
+					for(int i = 0;i<14;i++) {
+						holes[i].stoneMutator(us.getHoles()[i]);// set stones from undostructure
+					}
 				}
 			}
 		});
