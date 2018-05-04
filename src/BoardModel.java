@@ -170,7 +170,7 @@ public class BoardModel {
 				} else if (clickedHoleIndex == 14) {
 					System.out.println(us.getWhoseTurn());
 					System.out.println(us.getUndoCount());
-					if(us.getUndoCount()<=3) {
+					if(us.getUndoCount()<3) {
 					for(int i = 0;i<14;i++) {
 						holes[i].stoneMutator(us.getHoles()[i]);// Set stones from UndoStructure.
 					}
