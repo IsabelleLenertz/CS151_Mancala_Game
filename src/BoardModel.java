@@ -119,21 +119,27 @@ public class BoardModel {
 	public void play(int index) {
 		us.setHoles(holes); // Save the holes in case of undo
 		
+		boolean updateView = false;
+		
 		if (players[0].isTurn()) {          // Check Player 1 can take their turn.
 			if (0 <= index && index <= 5) { // Check a Player 1 pit was selected.
 				players[0].play(index);     // Player 1 takes their turn.
 				players[1].startTurn();     // Player 1's turn is over. Player 2 can go.
 				us.setWhoseTurn(playerOne);
+				updateView = true;
 			}
 		} else if (players[1].isTurn()) {                             // Check Player 2 can take their turn.
 			if (7 <= index && index <= 12) { // Check a Player 2 pit was selected.
 				players[1].play(index);      // Player 2 takes their turn.
 				players[0].startTurn();      // Player 2's turn is over. Player 1 can go
 				us.setWhoseTurn(playerTwo);
+				updateView = true;
 			}
 		}
 		
-		view.isNotified();
+		if (updateView) {
+			view.isNotified();
+		}
 	}
 	
 	/**
@@ -168,7 +174,6 @@ public class BoardModel {
 				if (-1 < clickedHoleIndex && clickedHoleIndex < 14) { // Can play the game.
 					play(clickedHoleIndex);  // Play the game.
 				} else if (clickedHoleIndex == 14) {
-					System.out.println(us.getWhoseTurn());
 					for(int i = 0;i<14;i++) {
 						holes[i].stoneMutator(us.getHoles()[i]);// Set stones from UndoStructure.
 					}
