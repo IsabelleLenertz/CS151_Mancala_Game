@@ -72,11 +72,9 @@ public class StartWindow extends JFrame{
 			  } 
 			} );
 		startNow = new JButton("Start Now!");
-		startNow.setOpaque(true);
 		startNow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				startGame();
-				startNow.setBackground(Color.BLUE);
 			}
 		});
 		Box stoneBox = Box.createHorizontalBox();

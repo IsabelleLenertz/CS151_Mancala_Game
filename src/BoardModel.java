@@ -169,10 +169,12 @@ public class BoardModel {
 					play(clickedHoleIndex);  // Play the game.
 				} else if (clickedHoleIndex == 14) {
 					System.out.println(us.getWhoseTurn());
+					System.out.println(us.getUndoCount());
+					if(us.getUndoCount()<=3) {
 					for(int i = 0;i<14;i++) {
 						holes[i].stoneMutator(us.getHoles()[i]);// Set stones from UndoStructure.
 					}
-					
+					us.incrementCount();
 					// Return to the previous turn.
 					if (us.getWhoseTurn() == playerOne) {
 						players[0].startTurn();
@@ -182,8 +184,10 @@ public class BoardModel {
 						players[1].startTurn();
 					}
 					
+					
 					// Update view.
 					view.isNotified();
+				}
 				}
 			}
 		});
