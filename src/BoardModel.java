@@ -11,7 +11,7 @@ import java.awt.event.MouseEvent;
  * @author Lucas Galleguillos
  */
 public class BoardModel {
-	private BoardView view;
+	private View view;
 	private Hole[] holes;
 	private int initialStoneCount;
 	private Player[] players;
