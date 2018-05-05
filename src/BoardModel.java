@@ -119,21 +119,35 @@ public class BoardModel {
 	public void play(int index) {
 		us.setHoles(holes); // Save the holes in case of undo
 		
-		if (players[0].isTurn()) {          // Check Player 1 can take their turn.
-			if (0 <= index && index <= 5) { // Check a Player 1 pit was selected.
-				players[0].play(index);     // Player 1 takes their turn.
-				players[1].startTurn();     // Player 1's turn is over. Player 2 can go.
-				us.setWhoseTurn(playerOne);
+		boolean modelUpdated = false; // Flag used to trigger view notification.
+		
+		if (players[0].isTurn()) {                    // Check Player 1 can take their turn.
+			if (0 <= index && index <= 5) {           // Check a Player 1 pit was selected.
+				if (us.getWhoseTurn() == playerTwo) { // Check who last player was.
+					us.resetUndoCount();              // Last player was not player 1. Reset the undo count.
+				}
+				players[0].play(index);               // Player 1 takes their turn.
+				players[1].startTurn();               // Player 1's turn is over. Player 2 can go next.
+				us.setWhoseTurn(playerOne);           // Player 1 is now the last player to take a turn.
+				                                      // Thus, the UndoStructure is updated.
+				modelUpdated = true;                  // The view must be updated.
 			}
-		} else if (players[1].isTurn()) {                             // Check Player 2 can take their turn.
-			if (7 <= index && index <= 12) { // Check a Player 2 pit was selected.
-				players[1].play(index);      // Player 2 takes their turn.
-				players[0].startTurn();      // Player 2's turn is over. Player 1 can go
-				us.setWhoseTurn(playerTwo);
+		} else if (players[1].isTurn()) {             // Check Player 2 can take their turn.
+			if (7 <= index && index <= 12) {          // Check a Player 2 pit was selected.
+				if (us.getWhoseTurn() == playerOne) { // Check who last player was.
+					us.resetUndoCount();              // Last player was not player 2. Reset the undo count.
+				}
+				players[1].play(index);               // Player 2 takes their turn.
+				players[0].startTurn();               // Player 2's turn is over. Player 1 can go next.
+				us.setWhoseTurn(playerTwo);           // Player 2 is now the last player to take a turn.
+				                                      // Thus, the UndoStructure is updated.
+				modelUpdated = true;                  // The view must be updated.
 			}
 		}
 		
-		view.isNotified();
+		if (modelUpdated) {    // Check if model has been updated.
+			view.isNotified(); // Model updated. Notify the view to update as well.
+		}
 	}
 	
 	/**
@@ -165,29 +179,30 @@ public class BoardModel {
 					}
 				}
 				
-				if (-1 < clickedHoleIndex && clickedHoleIndex < 14) { // Can play the game.
-					play(clickedHoleIndex);  // Play the game.
-				} else if (clickedHoleIndex == 14) {
-					System.out.println(us.getWhoseTurn());
-					System.out.println(us.getUndoCount());
-					if(us.getUndoCount()<3) {
-					for(int i = 0;i<14;i++) {
-						holes[i].stoneMutator(us.getHoles()[i]);// Set stones from UndoStructure.
+				if (-1 < clickedHoleIndex && clickedHoleIndex < 14) { // Check to see if game is being played.
+					play(clickedHoleIndex);                           // Play the game.
+				} else if (clickedHoleIndex == 14) { // Check to see if undo button was pressed.
+					if(us.getUndoCount() < 3) {      // Undo pressed. Check that undo has not been exceeded.
+						for(int i = 0;i<14;i++) {
+							holes[i].stoneMutator(us.getHoles()[i]); // Set stones from UndoStructure.
+						}
+						
+						// Return to the previous turn.
+						if (us.getWhoseTurn() == playerOne) {
+							players[0].startTurn();
+							players[1].endTurn();
+						} else {
+							players[0].endTurn();
+							players[1].startTurn();
+						}
+						
+						
+						// Update view.
+						view.isNotified();
+						
+						// Increase the undo counter.
+						us.incrementCount();
 					}
-					us.incrementCount();
-					// Return to the previous turn.
-					if (us.getWhoseTurn() == playerOne) {
-						players[0].startTurn();
-						players[1].endTurn();
-					} else if (us.getWhoseTurn() == playerTwo) {
-						players[0].endTurn();
-						players[1].startTurn();
-					}
-					
-					
-					// Update view.
-					view.isNotified();
-				}
 				}
 			}
 		});

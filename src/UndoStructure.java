@@ -7,11 +7,11 @@
 public class UndoStructure {
 	private int[] holes;
 	private PlayerEnum whoseTurn;
-	private int playerACount;
-	private int playerBCount;
+	private int undoCount;
 	
 	public UndoStructure(){
 		holes = new int[14];
+		undoCount = 0;
 	}
 	
 	/**
@@ -47,21 +47,16 @@ public class UndoStructure {
 	public PlayerEnum getWhoseTurn() {
 		return whoseTurn;
 	}
+	
 	public int getUndoCount() {
-		if(whoseTurn==PlayerEnum.PLAYER_A) {
-			return playerACount;
-		}
-		else {
-			return playerBCount;
-		}
+		return undoCount;
 	}
+	
 	public void incrementCount() {
-		if(whoseTurn==PlayerEnum.PLAYER_A) {
-			playerACount++;
-		}
-		else {
-			playerBCount++;
-
-		}
+		undoCount ++;
+	}
+	
+	public void resetUndoCount() {
+		undoCount = 0;
 	}
 }

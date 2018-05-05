@@ -9,10 +9,10 @@ import java.util.Arrays;
  *
  */
 public class Player {
-	Mancala mancala;
-	Pit[] pits;
-	Hole[] holes;
-	boolean turn;
+	private Mancala mancala;
+	private Pit[] pits;
+	private Hole[] holes;
+	private boolean turn;
 	
 	/**
 	 * Create a Player with turn = false
