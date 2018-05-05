@@ -92,15 +92,6 @@ public class BoardModel {
 	}
 	
 	/**
-	 * Checks to see if the game has ended.
-	 * 
-	 * @return boolean denoting the status of the game's completion.
-	 */
-	private void gameOver() {
-
-	}
-	
-	/**
 	 * Allows the current state of the holes to be accessed by other classes.
 	 * 
 	 * @return the array of hole objects stored in this BoardModel
@@ -108,6 +99,7 @@ public class BoardModel {
 	public Hole[] getHoles() {
 		return holes;
 	}
+	
 	
 	/**
 	 * Allows the current state of the players to be accessed by other classes.
@@ -160,9 +152,7 @@ public class BoardModel {
 		}
 		
 		if (modelUpdated) {    // Check if model has been updated.
-			view.isNotified(); // Notify the view to update as well.
-			gameOver();
-			
+	
 			if (gameIsOver()) {
 				holes[6].stoneMutator(endingRowTotals[0] + holes[6].getStones());
 				holes[13].stoneMutator(endingRowTotals[1] + holes[13].getStones());
@@ -177,6 +167,7 @@ public class BoardModel {
 				
 				view.isNotified();
 			}
+			notifyView();
 		}
 	}
 

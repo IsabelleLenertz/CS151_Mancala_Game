@@ -9,12 +9,14 @@ import java.awt.geom.Rectangle2D;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  * Class that handles the display and update of the display
  * for the board game.
  * 
  * @author Lucas Galleguillos
+ * updated on 05/05/2018	by Isabelle Delmas		reason : added display of the winner when the game ends
  */
 public class BoardView extends JLabel implements View {
 	private BoardModel model;
@@ -23,6 +25,7 @@ public class BoardView extends JLabel implements View {
 	private int height;
 	private int width;
 	private Shape[] shapes;
+	private boolean over;
 	
 	/**
 	 * Single args ctor for the BoardView class. Allows the user to define the size
@@ -35,6 +38,7 @@ public class BoardView extends JLabel implements View {
 		size = new Dimension(width, this.height);
 		setPreferredSize(size);
 		shapes = new Shape[15];
+		over = false;
 	}
 	
 	/**
@@ -60,6 +64,21 @@ public class BoardView extends JLabel implements View {
 	 */
 	public void isNotified() {
 		repaint();
+		if (model.gameIsOver()) {
+			int score1 = model.getHoles()[6].getStones();
+			int score2 = model.getHoles()[13].getStones();
+			String winner;
+			if (score1 > score2) {
+				winner = "Player A";
+			} else {
+				winner = "Player B";
+			}
+			
+			if(!over)
+				JOptionPane.showMessageDialog(this, "the game is over, " + winner + " won.");
+			over = true;
+
+		}
 	}
 	
 	/**
