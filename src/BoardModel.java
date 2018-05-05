@@ -88,6 +88,22 @@ public class BoardModel {
 	}
 	
 	/**
+	 * Checks to see if the game has ended.
+	 * 
+	 * @return boolean denoting the status of the game's completion.
+	 */
+	private boolean gameOver() {
+		int stonesInPlay = 0;
+		
+		for (int i = 0; i < 6; i = i + 1) {
+			stonesInPlay = stonesInPlay + holes[i].getStones();
+			stonesInPlay = stonesInPlay + holes[i + 7].getStones();
+		}
+		
+		return (stonesInPlay != 0);
+	}
+	
+	/**
 	 * Allows the current state of the holes to be accessed by other classes.
 	 * 
 	 * @return the array of hole objects stored in this BoardModel
@@ -103,6 +119,23 @@ public class BoardModel {
 	 */
 	public Player[] getPlayers() {
 		return players;
+	}
+	
+	/**
+	 * Determines the winner of the game.
+	 * 
+	 * @return PlayerEnum denoting the game winner.
+	 */
+	private PlayerEnum getWinner() {
+		PlayerEnum winner = null;
+		
+		if (players[0].getScore() > players[1].getScore()) {
+			winner = playerOne;
+		} else if (players[1].getScore() > players[0].getScore()) {
+			winner = playerTwo;
+		}
+		
+		return winner;
 	}
 	
 	/**
