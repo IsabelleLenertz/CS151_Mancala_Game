@@ -186,6 +186,13 @@ public class SquareBoard implements BoardStrategy {
 		
 	}
 	
+	/**
+	 * Display a label on the board view
+	 * @param label string to display
+	 * @param xPosition x position of the label (upper left corner)
+	 * @param yPosition y position of the label (upper left corner)
+	 * @param g2 graphical context
+	 */
 	public void displayPitLabel(String label, int xPosition, int yPosition, Graphics2D g2) {
 		yPosition += CHAR_HEIGHT_OFFSET;
 		g2.setColor(TEXT_COLOR);
