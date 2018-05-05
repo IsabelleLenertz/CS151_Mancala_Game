@@ -122,23 +122,6 @@ public class BoardModel {
 	}
 	
 	/**
-	 * Determines the winner of the game.
-	 * 
-	 * @return PlayerEnum denoting the game winner.
-	 */
-	private PlayerEnum getWinner() {
-		PlayerEnum winner = null;
-		
-		if (players[0].getScore() > players[1].getScore()) {
-			winner = playerOne;
-		} else if (players[1].getScore() > players[0].getScore()) {
-			winner = playerTwo;
-		}
-		
-		return winner;
-	}
-	
-	/**
 	 * Method for updating the appearance of the game for the user after
 	 * changes have been made to the underlying data.
 	 */
@@ -212,29 +195,32 @@ public class BoardModel {
 					}
 				}
 				
-				if (-1 < clickedHoleIndex && clickedHoleIndex < 14) { // Check to see if game is being played.
-					play(clickedHoleIndex);                           // Play the game.
-				} else if (clickedHoleIndex == 14) { // Check to see if undo button was pressed.
-					if(us.getUndoCount() < 3) {      // Undo pressed. Check that undo has not been exceeded.
-						for(int i = 0;i<14;i++) {
-							holes[i].stoneMutator(us.getHoles()[i]); // Set stones from UndoStructure.
+				// Check if the game is over.
+				if (!gameOver()) { // The game is not over.
+					if (-1 < clickedHoleIndex && clickedHoleIndex < 14) { // Check to see if game is being played.
+						play(clickedHoleIndex);                           // Play the game.
+					} else if (clickedHoleIndex == 14) { // Check to see if undo button was pressed.
+						if(us.getUndoCount() < 3) {      // Undo pressed. Check that undo has not been exceeded.
+							for(int i = 0;i<14;i++) {
+								holes[i].stoneMutator(us.getHoles()[i]); // Set stones from UndoStructure.
+							}
+							
+							// Return to the previous turn.
+							if (us.getWhoseTurn() == playerOne) {
+								players[0].startTurn();
+								players[1].endTurn();
+							} else {
+								players[0].endTurn();
+								players[1].startTurn();
+							}
+							
+							
+							// Update view.
+							view.isNotified();
+							
+							// Increase the undo counter.
+							us.incrementCount();
 						}
-						
-						// Return to the previous turn.
-						if (us.getWhoseTurn() == playerOne) {
-							players[0].startTurn();
-							players[1].endTurn();
-						} else {
-							players[0].endTurn();
-							players[1].startTurn();
-						}
-						
-						
-						// Update view.
-						view.isNotified();
-						
-						// Increase the undo counter.
-						us.incrementCount();
 					}
 				}
 			}
