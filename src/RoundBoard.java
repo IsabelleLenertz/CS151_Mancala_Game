@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.RoundRectangle2D;
 /**
  * Strategy used to display a board with round pits
  * Used by the BoardView to define the shape and colors of the board
@@ -130,7 +131,7 @@ public class RoundBoard implements BoardStrategy {
 		g2.draw(hole);
 		
 		// Create and draw all the stones if room enough to display them		
-		if (numberOfStones <= (STONES_PER_ROW*STONES_PER_COL)) {
+		if (numberOfStones <= 4) {
 			int stoneWidth = width/(STONES_PER_ROW + 1);
 			int stoneHeight = height/(STONES_PER_COL + 1);
 			int widthInterval = stoneWidth/(STONES_PER_ROW + 1);
@@ -139,16 +140,19 @@ public class RoundBoard implements BoardStrategy {
 			int stoneInitialY = yPosition + heightInterval;
 			int stoneX = stoneInitialX;
 			int stoneY = stoneInitialY;
-			for(int i = 0; i < numberOfStones; i++) {
+			for(int i = 0; i < numberOfStones; ) {
 				if (stoneX+stoneWidth > (xPosition+width)) {
 					stoneX = stoneInitialX;
 					stoneY += stoneHeight + heightInterval;
 				}
 				Ellipse2D.Double stone = new Ellipse2D.Double(stoneX, stoneY, stoneHeight, stoneWidth);
-				g2.setColor(STONE_COLOR);
-				g2.fill(stone);
-				g2.setColor(BORDER_COLOR);
-				g2.draw(stone);
+				if(hole.contains(stoneX,  stoneY,  stoneWidth,  stoneHeight)) {
+					g2.setColor(STONE_COLOR);
+					g2.fill(stone);
+					g2.setColor(BORDER_COLOR);
+					g2.draw(stone);
+					i++;
+				}
 				stoneX += stoneWidth + widthInterval;
 
 			}
@@ -178,14 +182,14 @@ public class RoundBoard implements BoardStrategy {
 		g2.setStroke(BASIC_STROKE);
 		
 		// Create and draw the rectangle for the pit
-		Shape hole = new Ellipse2D.Double(xPosition, yPosition, width, height);
+		Shape hole = new RoundRectangle2D.Double(xPosition, yPosition, width, height, WIDTH_ARC, WIDTH_ARC );
 		g2.setColor(MANCALA_COLOR);
 		g2.fill(hole);
 		g2.setColor(BORDER_COLOR);
 		g2.draw(hole);
 		
 		// Create and draw all the stones if room enough to display them		
-		if (numberOfStones <= (27)) {
+		if (numberOfStones <= (STONES_PER_ROW*STONES_PER_COL)) {
 			int stoneWidth = width/(STONES_PER_ROW_M + 1);
 			int stoneHeight = height/(STONES_PER_COL_M + 3);
 			int widthInterval = stoneWidth/(STONES_PER_ROW_M + 1);
