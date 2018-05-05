@@ -100,7 +100,7 @@ public class BoardModel {
 			stonesInPlay = stonesInPlay + holes[i + 7].getStones();
 		}
 		
-		return (stonesInPlay != 0);
+		return (stonesInPlay == 0);
 	}
 	
 	/**
