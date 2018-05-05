@@ -18,6 +18,8 @@ public class BoardModel {
 	private PlayerEnum playerOne;
 	private PlayerEnum playerTwo;
 	private UndoStructure us;
+	private boolean GAME_OVER;
+	private int[] endingRowTotals;
 	
 	/**
 	 * Default singe-args ctor for the BoardModel class. Initializes all underlying data structures except
@@ -85,6 +87,10 @@ public class BoardModel {
 		
 		// Save the initial holes set up to the undo structure.
 		us.setHoles(holes);
+		
+		GAME_OVER = false;
+		
+		endingRowTotals = new int[2];
 	}
 	
 	/**
@@ -92,15 +98,29 @@ public class BoardModel {
 	 * 
 	 * @return boolean denoting the status of the game's completion.
 	 */
-	private boolean gameOver() {
-		int stonesInPlay = 0;
+	private void gameOver() {
+		int firstRowCount = 0;
+		int secondRowCount = 0;
 		
 		for (int i = 0; i < 6; i = i + 1) {
-			stonesInPlay = stonesInPlay + holes[i].getStones();
-			stonesInPlay = stonesInPlay + holes[i + 7].getStones();
+			firstRowCount = firstRowCount + holes[i].getStones();
+			secondRowCount = secondRowCount + holes[i + 7].getStones();
 		}
 		
-		return (stonesInPlay == 0);
+		endingRowTotals[0] = firstRowCount;
+		endingRowTotals[1] = secondRowCount;
+		
+		if (firstRowCount == 0) {
+			GAME_OVER = true;
+			return;
+		}
+		
+		if (secondRowCount == 0) {
+			GAME_OVER = true;
+			return;
+		}
+		
+		GAME_OVER = false;
 	}
 	
 	/**
@@ -162,7 +182,23 @@ public class BoardModel {
 		}
 		
 		if (modelUpdated) {    // Check if model has been updated.
-			view.isNotified(); // Model updated. Notify the view to update as well.
+			view.isNotified(); // Notify the view to update as well.
+			gameOver();
+			
+			if (GAME_OVER) {
+				holes[6].stoneMutator(endingRowTotals[0] + holes[6].getStones());
+				holes[13].stoneMutator(endingRowTotals[1] + holes[13].getStones());
+				
+				endingRowTotals[0] = 0;
+				endingRowTotals[1] = 0;
+				
+				for (int i = 0; i < 6; i = i + 1) {
+					holes[i].stoneMutator(0);
+					holes[i + 7].stoneMutator(0);
+				}
+				
+				view.isNotified();
+			}
 		}
 	}
 	
@@ -195,8 +231,8 @@ public class BoardModel {
 					}
 				}
 				
-				// Check if the game is over.
-				if (!gameOver()) { // The game is not over.
+				// Check if game is over.
+				if (!GAME_OVER) { // Game is not over keep playing.
 					if (-1 < clickedHoleIndex && clickedHoleIndex < 14) { // Check to see if game is being played.
 						play(clickedHoleIndex);                           // Play the game.
 					} else if (clickedHoleIndex == 14) { // Check to see if undo button was pressed.
