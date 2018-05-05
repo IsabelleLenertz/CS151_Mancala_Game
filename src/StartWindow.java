@@ -1,16 +1,22 @@
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.Point;
+import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 /**
- * start window is for users to choose initial stones and theme
- * @author yilinzhao
- *@date 05/02/18
+ * 	start window is for users to choose initial stones and theme
+ * 	@author yilinzhao
+ *	@date 05/02/18
+ *	updated on 05/05/2018		by Isabelle Delmas		reason: made the code complient with MVC pattern
  */
 public class StartWindow extends JFrame{
 	JButton threeStone;
@@ -107,16 +113,51 @@ public class StartWindow extends JFrame{
 	 * start main game screen
 	 */
 	public void startGame() {
-		BoardModel boardModel = new BoardModel(numberOfStone);
-		BoardView boardView = new BoardView(GAME_BOARD_WIDTH, GAME_BOARD_HEIGHT);
+		final BoardModel boardModel = new BoardModel(numberOfStone);
+		final View boardView = new BoardView(GAME_BOARD_WIDTH, GAME_BOARD_HEIGHT);
 		boardView.setBoardModel(boardModel);
-		boardModel.setBoardView(boardView);
 		boardView.setBoardStrategy(selectedStrategy);
+		boardModel.setBoardView(boardView);
+
+
+		// Get the shapes created during the first display of the view.
+		final Shape[] shapes = boardView.getShapes();
+				
+
+		// Set the controller
+		boardView.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+
+				// When a click on the view is detected, we will check to see if
+				// it was a on a pit.
+				Point p = e.getPoint(); // The location of the click.
+				
+				// The index of the clicked hole. -1 if it there is no clicked hole
+				int clickedHoleIndex = -1;
+				
+				// Loop through the hole shapes and see if the click was in one
+				// of them.
+				for (int i = 0; i < shapes.length; i = i + 1) {
+					if (shapes[i].contains(p)) { // A valid click.
+						clickedHoleIndex = clickedHoleIndex + i + 1; // Save the index of hole clicked.
+					}
+				}
+				
+				// Check if game is over.
+				if (!boardModel.gameIsOver()) { // Game is not over keep playing.
+					if (-1 < clickedHoleIndex && clickedHoleIndex < 14) { // Check to see if game is being played.
+						boardModel.play(clickedHoleIndex);                           // Play the game.
+					} else if (clickedHoleIndex == 14) { // Check to see if undo button was pressed.
+						boardModel.undo();
+					}
+				}
+			}
+		});
+		
 		JFrame gameFrame = new JFrame();
 		gameFrame.setSize(GAME_BOARD_WIDTH,GAME_BOARD_HEIGHT);
-		gameFrame.add(boardView);
+		gameFrame.add((Component)boardView);
 		gameFrame.setVisible(true);
-		System.out.println("reached start game");
 	}
 	
 }

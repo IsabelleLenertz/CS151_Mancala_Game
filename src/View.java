@@ -1,4 +1,6 @@
 import java.awt.Shape;
+import java.awt.event.MouseListener;
+
 
 /**
  * Interface for the View in the MVC pattern
@@ -8,7 +10,7 @@ import java.awt.Shape;
  * @revision 05-05-18				Reason: added getShape(), needed by the controller
  *
  */
-public interface View {
+public interface View{
 	
 	/**
 	 * Set the strategy used to display the board
@@ -35,5 +37,18 @@ public interface View {
 	 * @return
 	 */
 	public Shape[] getShapes();
+	
+	/**
+	 * Set the Model used to get the data to display.
+	 * 
+	 * @param model the BoardModel associated with this BoardView
+	 */
+	public void setBoardModel(BoardModel model) ;
+	
+	/**
+	 * Add a mouseListener to the view (make sure the view extends Component, which will take care of the implementation of that method)
+	 * @param ml mouse listener to add
+	 */
+	public void addMouseListener(MouseListener ml);
 	
 }

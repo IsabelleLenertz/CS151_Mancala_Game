@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
  * play the game of mancala.
  * 
  * @author Lucas Galleguillos
+ * updated on 05/05/2018		by Isabelle Delmas		reason: made the code compliant with MVC pattern
  */
 public class BoardModel {
 	private View view;
@@ -18,7 +19,6 @@ public class BoardModel {
 	private PlayerEnum playerOne;
 	private PlayerEnum playerTwo;
 	private UndoStructure us;
-	private boolean GAME_OVER;
 	private int[] endingRowTotals;
 	
 	/**
@@ -87,9 +87,7 @@ public class BoardModel {
 		
 		// Save the initial holes set up to the undo structure.
 		us.setHoles(holes);
-		
-		GAME_OVER = false;
-		
+				
 		endingRowTotals = new int[2];
 	}
 	
@@ -99,28 +97,7 @@ public class BoardModel {
 	 * @return boolean denoting the status of the game's completion.
 	 */
 	private void gameOver() {
-		int firstRowCount = 0;
-		int secondRowCount = 0;
-		
-		for (int i = 0; i < 6; i = i + 1) {
-			firstRowCount = firstRowCount + holes[i].getStones();
-			secondRowCount = secondRowCount + holes[i + 7].getStones();
-		}
-		
-		endingRowTotals[0] = firstRowCount;
-		endingRowTotals[1] = secondRowCount;
-		
-		if (firstRowCount == 0) {
-			GAME_OVER = true;
-			return;
-		}
-		
-		if (secondRowCount == 0) {
-			GAME_OVER = true;
-			return;
-		}
-		
-		GAME_OVER = false;
+
 	}
 	
 	/**
@@ -151,6 +128,7 @@ public class BoardModel {
 	
 	/**
 	 * Method which contains the main logic for the game.
+	 * @param index hole selected to play
 	 */
 	public void play(int index) {
 		us.setHoles(holes); // Save the holes in case of undo
@@ -185,7 +163,7 @@ public class BoardModel {
 			view.isNotified(); // Notify the view to update as well.
 			gameOver();
 			
-			if (GAME_OVER) {
+			if (gameIsOver()) {
 				holes[6].stoneMutator(endingRowTotals[0] + holes[6].getStones());
 				holes[13].stoneMutator(endingRowTotals[1] + holes[13].getStones());
 				
@@ -201,6 +179,60 @@ public class BoardModel {
 			}
 		}
 	}
+
+	/**
+	 * Restore the state of the board to the previous state, if allowed by the rules
+	 */
+	public void undo() {
+		if(us.getUndoCount() < 3) {      // Undo pressed. Check that undo has not been exceeded.
+			for(int i = 0;i<14;i++) {
+				holes[i].stoneMutator(us.getHoles()[i]); // Set stones from UndoStructure.
+			}
+			
+			// Return to the previous turn.
+			if (us.getWhoseTurn() == playerOne) {
+				players[0].startTurn();
+				players[1].endTurn();
+			} else {
+				players[0].endTurn();
+				players[1].startTurn();
+			}
+			
+			
+			// Update view.
+			view.isNotified();
+			
+			// Increase the undo counter.
+			us.incrementCount();
+		}
+	}
+	
+	/**
+	 * Check if the game has reached the end
+	 * @return true if the game ended, false otherwise
+	 */
+	public boolean gameIsOver() {
+		int firstRowCount = 0;
+		int secondRowCount = 0;
+		
+		for (int i = 0; i < 6; i = i + 1) {
+			firstRowCount = firstRowCount + holes[i].getStones();
+			secondRowCount = secondRowCount + holes[i + 7].getStones();
+		}
+		
+		endingRowTotals[0] = firstRowCount;
+		endingRowTotals[1] = secondRowCount;
+		
+		if (firstRowCount == 0) {
+			return true;
+		}
+		
+		if (secondRowCount == 0) {
+			return true;
+		}
+		
+		return false;
+	}
 	
 	/**
 	 * Mutator for the BoardView associated with this BoardModel. Attachs a mouse listener
@@ -209,59 +241,7 @@ public class BoardModel {
 	 * 
 	 * @param newView the BoardView for this BoardModel
 	 */
-	public void setBoardView(BoardView newView) {
-		// Get the shapes created during the first display of the view.
-		final Shape[] shapes = newView.getShapes();
-		
-		// Attach a listener to the view for clicks.
-		newView.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				// When a click on the view is detected, we will check to see if
-				// it was a on a pit.
-				Point p = e.getPoint(); // The location of the click.
-				
-				// The index of the clicked hole. -1 if it there is no clicked hole
-				int clickedHoleIndex = -1;
-				
-				// Loop through the hole shapes and see if the click was in one
-				// of them.
-				for (int i = 0; i < shapes.length; i = i + 1) {
-					if (shapes[i].contains(p)) { // A valid click.
-						clickedHoleIndex = clickedHoleIndex + i + 1; // Save the index of hole clicked.
-					}
-				}
-				
-				// Check if game is over.
-				if (!GAME_OVER) { // Game is not over keep playing.
-					if (-1 < clickedHoleIndex && clickedHoleIndex < 14) { // Check to see if game is being played.
-						play(clickedHoleIndex);                           // Play the game.
-					} else if (clickedHoleIndex == 14) { // Check to see if undo button was pressed.
-						if(us.getUndoCount() < 3) {      // Undo pressed. Check that undo has not been exceeded.
-							for(int i = 0;i<14;i++) {
-								holes[i].stoneMutator(us.getHoles()[i]); // Set stones from UndoStructure.
-							}
-							
-							// Return to the previous turn.
-							if (us.getWhoseTurn() == playerOne) {
-								players[0].startTurn();
-								players[1].endTurn();
-							} else {
-								players[0].endTurn();
-								players[1].startTurn();
-							}
-							
-							
-							// Update view.
-							view.isNotified();
-							
-							// Increase the undo counter.
-							us.incrementCount();
-						}
-					}
-				}
-			}
-		});
-		
+	public void setBoardView(View newView) {
 		// Enclose the modified view in this BoardModel.
 		view = newView;
 	}
