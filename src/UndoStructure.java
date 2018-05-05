@@ -5,17 +5,20 @@
  *
  */
 public class UndoStructure {
-	private int[] holes;
-	private PlayerEnum whoseTurn;
-	private int undoCount;
-	
+	private int[] holes; // list of numbers of stones in holes
+	private PlayerEnum whoseTurn; 
+	private int undoCount;// keeps count of player's undo times
+	/**
+	 * initial all holes to have 0 stone
+	 * initial undo count to 0
+	 */
 	public UndoStructure(){
 		holes = new int[14];
 		undoCount = 0;
 	}
 	
 	/**
-	 *
+	 *update set the array of holes
 	 * @param newHoles the most recent set of holes
 	 */
 	public void setHoles(Hole[] newHoles){
@@ -25,7 +28,7 @@ public class UndoStructure {
 	}
 	
 	/**
-	 *
+	 * 
 	 * @return return most recent set of holes
 	 */
 	public int[] getHoles(){
@@ -47,15 +50,22 @@ public class UndoStructure {
 	public PlayerEnum getWhoseTurn() {
 		return whoseTurn;
 	}
-	
+	/**
+	 * 
+	 * @return undo count
+	 */
 	public int getUndoCount() {
 		return undoCount;
 	}
-	
+	/**
+	 *  add undocount by 1
+	 */
 	public void incrementCount() {
 		undoCount ++;
 	}
-	
+	/**
+	 * set undocount to 0
+	 */
 	public void resetUndoCount() {
 		undoCount = 0;
 	}
