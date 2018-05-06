@@ -28,8 +28,9 @@ public class StartWindow extends JFrame{
 	final int GAME_BOARD_WIDTH = 1000;
 	final int GAME_BOARD_HEIGHT = 500;
 	final int VERTICAL_DISTANCE_BETWEEN_BUTTONS = 100;
-	int numberOfStone;
-	BoardStrategy selectedStrategy;
+	// default: 3 stone, squareBoard
+	int numberOfStone = 3;
+	BoardStrategy selectedStrategy = new SquareBoard();
 /**
  * ctor that creates five buttons, add listeners to the buttons
  */
@@ -38,6 +39,7 @@ public class StartWindow extends JFrame{
 		this.setSize(START_WINDOW_DIMENSION,START_WINDOW_DIMENSION);
 		threeStone = new JButton("3 stones");
 		threeStone.setOpaque(true);
+		threeStone.setBackground(Color.BLUE);
 		threeStone.addActionListener(new ActionListener() { 
 			  public void actionPerformed(ActionEvent e) { 
 			    numberOfStone = 3;
@@ -59,6 +61,7 @@ public class StartWindow extends JFrame{
 			} );
 		squareStrategy = new JButton("SquareStrategy");
 	    squareStrategy.setOpaque(true);
+	    squareStrategy.setBackground(Color.BLUE);
 		squareStrategy.addActionListener(new ActionListener() { 
 			  public void actionPerformed(ActionEvent e) { 
 			    selectedStrategy =  new SquareBoard();
